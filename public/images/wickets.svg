@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    id="svg3833"
+    sodipodi:docname="wickets.svg"
+    viewBox="0 0 64 64"
+    version="1.1"
+    inkscape:version="0.47 r22583"
+  >
+  <defs
+      id="defs3835"
+    >
+    <filter
+        id="filter4540"
+        height="1.0379"
+        width="2.7362"
+        y="-.018962"
+        x="-.86811"
+        inkscape:collect="always"
+      >
+      <feGaussianBlur
+          id="feGaussianBlur4542"
+          stdDeviation="0.53904316"
+          inkscape:collect="always"
+      />
+    </filter
+    >
+    <filter
+        id="filter4567"
+        height="12.736"
+        width="1.1861"
+        y="-5.8679"
+        x="-.093064"
+        inkscape:collect="always"
+      >
+      <feGaussianBlur
+          id="feGaussianBlur4569"
+          stdDeviation="0.75041062"
+          inkscape:collect="always"
+      />
+    </filter
+    >
+  </defs
+  >
+  <sodipodi:namedview
+      id="base"
+      bordercolor="#666666"
+      inkscape:pageshadow="2"
+      inkscape:window-y="-4"
+      pagecolor="#ffffff"
+      inkscape:window-height="712"
+      inkscape:grid-bbox="true"
+      inkscape:window-maximized="1"
+      inkscape:zoom="7.34375"
+      inkscape:window-x="-4"
+      showgrid="true"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="32"
+      inkscape:cy="32"
+      inkscape:window-width="1280"
+      inkscape:pageopacity="0.0"
+      inkscape:document-units="px"
+  />
+  <g
+      id="layer1"
+      inkscape:label="Layer 1"
+      inkscape:groupmode="layer"
+    >
+    <path
+        id="path4532"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#e1bd74"
+        d="m18.014 5.5002c-0.98559 0.07958-1.8719 1.0515-1.8565 2.036l0.14657 50.702c-0.09285 1.0408 1.7976 0.39753 2.836 0.32448s0.99429 0.44031 0.90144-0.5874l-0.123-50.704c0.016-1.0024-0.903-1.857-1.905-1.7708z"
+    />
+    <path
+        id="path4538"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;filter:url(#filter4540);color:#000000;text-transform:none;fill:#816519"
+        transform="matrix(.78169 0 0 .76921 11.956 4.0845)"
+        d="m8.0236 1.999c-0.3739 0.1018-0.7101 1.3452-0.7042 2.6045l0.055598 64.862c-0.035222 1.3314 0.6819 0.50854 1.0758 0.41509s0.37717 0.56328 0.34194-0.75144l-0.0463-64.865c0.0059-1.2831-0.3428-2.3763-0.7228-2.266z"
+    />
+    <path
+        id="path4544"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#e1bd74"
+        d="m30.589 5.362c-0.98559 0.07958-1.8719 1.0515-1.8565 2.036l0.14657 50.702c-0.09286 1.0408 1.7976 0.39753 2.836 0.32448s0.99429 0.44031 0.90144-0.5874l-0.122-50.704c0.016-1.0026-0.904-1.8571-1.905-1.771z"
+    />
+    <path
+        id="path4546"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;filter:url(#filter4540);color:#000000;text-transform:none;fill:#816519"
+        transform="matrix(.78169 0 0 .77171 11.956 4.081)"
+        d="m24.11 1.8222c-0.37386 0.1018-0.71006 1.3452-0.70424 2.6046l0.0556 64.862c-0.03522 1.3314 0.6819 0.50854 1.0758 0.41509s0.37716 0.56328 0.34194-0.75144l-0.047-64.865c0.0059-1.2831-0.34274-2.3762-0.72277-2.266z"
+    />
+    <path
+        id="path4548"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#e1bd74"
+        d="m41.782 5.362c-0.98559 0.07958-1.8719 1.0515-1.8565 2.036l0.14657 50.702c-0.09286 1.0408 1.7976 0.39753 2.836 0.32448s0.99429 0.44031 0.90144-0.5874l-0.123-50.704c0.016-1.0026-0.904-1.8571-1.905-1.771z"
+    />
+    <path
+        id="path4550"
+        sodipodi:nodetypes="cccsccc"
+        style="block-progression:tb;text-indent:0;filter:url(#filter4540);color:#000000;text-transform:none;fill:#816519"
+        transform="matrix(.78169 0 0 .75673 11.956 4.0888)"
+        d="m38.429 1.8222c-0.37386 0.1018-0.71006 1.3452-0.70424 2.6046l0.0556 64.862c-0.03522 1.3314 0.6819 0.50854 1.0758 0.41509s0.37716 0.56328 0.34194-0.75144l-0.047-64.865c0.0059-1.2831-0.34274-2.3762-0.72277-2.266z"
+    />
+    <g
+        id="g4557"
+        style="stroke:#dbc779;fill:#95772c"
+        transform="matrix(.72917 0 0 .52641 -39.124 -1.8983)"
+      >
+      <path
+          id="path4552"
+          sodipodi:nodetypes="cc"
+          style="stroke:#dbc779;stroke-linecap:round;stroke-width:3.1629;fill:#95772c"
+          d="m75.088 12.423c19.352-0.08352 17.907-0.08352 17.907-0.08352"
+      />
+      <path
+          id="path4554"
+          style="stroke:#dbc779;stroke-linecap:round;stroke-width:4.7788;fill:#95772c"
+          d="m79.903 12.116h9.0156"
+      />
+    </g
+    >
+    <g
+        id="g4561"
+        style="opacity:.22632;filter:url(#filter4567);stroke:#ac7148;fill:#494949"
+        transform="matrix(.63936 0 0 .10756 -32.763 3.2823)"
+      >
+      <path
+          id="path4563"
+          style="stroke:#ac7148;stroke-width:3.1629;fill:#494949"
+          d="m75.088 12.423c19.352-0.08352 19.352-0.08352 19.352-0.08352"
+      />
+      <path
+          id="path4565"
+          style="stroke:#ac7148;stroke-linecap:round;stroke-width:4.7788;fill:#494949"
+          d="m79.903 12.116h9.0156"
+      />
+    </g
+    >
+    <g
+        id="g4571"
+        style="stroke:#dbc779;fill:#95772c"
+        transform="matrix(-.71283 0 0 .52737 96.83 -2.0161)"
+      >
+      <path
+          id="path4573"
+          sodipodi:nodetypes="cc"
+          style="stroke:#dbc779;stroke-linecap:round;stroke-width:3.1629;fill:#95772c"
+          d="m75.088 12.423c19.352-0.08352 17.907 0.31877 17.907 0.31877"
+      />
+      <path
+          id="path4575"
+          style="stroke:#dbc779;stroke-linecap:round;stroke-width:4.7788;fill:#95772c"
+          d="m79.903 12.116h9.0156"
+      />
+    </g
+    >
+    <g
+        id="g4577"
+        style="opacity:.22632;filter:url(#filter4567);stroke:#ac7148;fill:#494949"
+        transform="matrix(-.62504 0 0 .10776 90.611 3.174)"
+      >
+      <path
+          id="path4579"
+          style="stroke:#ac7148;stroke-width:3.1629;fill:#494949"
+          d="m75.088 12.423c19.352-0.08352 19.352-0.08352 19.352-0.08352"
+      />
+      <path
+          id="path4581"
+          style="stroke:#ac7148;stroke-linecap:round;stroke-width:4.7788;fill:#494949"
+          d="m79.903 12.116h9.0156"
+      />
+    </g
+    >
+    <path
+        id="path4583"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m22.183 3.3207v2.4383h0.1999v-2.4383h-0.1999z"
+    />
+    <path
+        id="path4585"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m22.883 3.1012v2.4383h0.1999v-2.4383h-0.1999z"
+    />
+    <path
+        id="path4587"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m22.183 3.3207v2.4383h0.1999v-2.4383h-0.1999z"
+    />
+    <path
+        id="path4589"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m22.883 3.1012v2.4383h0.1999v-2.4383h-0.1999z"
+    />
+    <path
+        id="path4607"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m36.367 2.904v2.4428h0.19542v-2.4428h-0.19542z"
+    />
+    <path
+        id="path4609"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m37.051 2.6841v2.4428h0.19542v-2.4428h-0.19542z"
+    />
+    <path
+        id="path4611"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m36.367 2.904v2.4428h0.19542v-2.4428h-0.19542z"
+    />
+    <path
+        id="path4613"
+        style="block-progression:tb;text-indent:0;color:#000000;text-transform:none;fill:#c6ad20"
+        d="m37.051 2.6841v2.4428h0.19542v-2.4428h-0.19542z"
+    />
+    <rect
+        id="rect4615"
+        style="opacity:0;stroke-width:0"
+        ry=".10225"
+        height="64"
+        width="64"
+        y="0"
+        x="0"
+    />
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >wickets</dc:title
+        >
+        <dc:date
+          >2010-08-05T19:57:49</dc:date
+        >
+        <dc:description
+          >sports clip art by netalloy</dc:description
+        >
+        <dc:source
+          >https://openclipart.org/detail/77815/wickets-by-netalloy</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >netalloy</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >cricket</rdf:li
+            >
+            <rdf:li
+              >icon</rdf:li
+            >
+            <rdf:li
+              >sports</rdf:li
+            >
+            <rdf:li
+              >sports 2010</rdf:li
+            >
+            <rdf:li
+              >wicket</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>
