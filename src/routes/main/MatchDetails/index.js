@@ -3,13 +3,16 @@ import {
   AutoComplete,
   Button,
   Col,
+  Dropdown,
   Input,
+  Menu,
   Row,
   Select,
   Spin,
+  Switch,
   Table,
 } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { LoadingOutlined, SettingFilled } from "@ant-design/icons";
 import Auxiliary from "util/Auxiliary";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -31,7 +34,15 @@ import { betChipsValues } from "../../../constants/global";
 import CompletedBetsModal from "./CompletedBetsModal";
 import BetPlaceModal from './BetPlaceModal';
 import { getSocket, initSocket } from "../../../components/SocketConnection/SocketConnection";
-import UrbetLayout from "../../../components/SidebarNew/SidebarNew";
+import { httpPatch, httpPost } from "../../../http/http";
+import { NotificationManager } from "react-notifications";
+import { Link } from "react-router-dom";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
+import { BsGraphUp, BsArrowDownShort, BsInfoCircleFill } from 'react-icons/bs';
+import SessionBookDataModal from "./SessionBookDataModal";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import FancyRuleModal from "./FancyRuleModal";
+
 
 
 const MatchDetails = () => {
@@ -48,9 +59,16 @@ const MatchDetails = () => {
   const [inputValue, setInputValue] = useState(0);
   const [minMaxCoins, setminMaxCoins] = useState({ max: null, min: null });
   const [sessionCoin, setSessionCoin] = useState({ max: null, min: null });
+  const [isTieCoin, setIsTieCoin] = useState({ max: null, min: null });
+  const [isTossCoin, setIsTossCoin] = useState({ max: null, min: null });
+  const [isMatchCoin, setIsMatchCoin] = useState({ max: null, min: null });
   const [completedModal, setCompltedModal] = useState(false)
+  const [matchBetChipPlaceModal, setMatchBetChipPlaceModal] = useState(false);
   const [showBetPlaceModal, setShowBetPlaceModal] = useState(false);
   const [totalSessionPlusMinus, setTotalSessionPlusMinus] = useState()
+  const [sessionBookData, setSessionBookData] = useState()
+  const [sessionBookModal, setSessionBookModal] = useState()
+  const [fancyRuleModal , setFancyRuleModal] = useState(false)
   const {
     matchDetailsResponse,
     userpositionbymarketId,
@@ -61,7 +79,7 @@ const MatchDetails = () => {
   } = useSelector((state) => state.UserReducer);
 
   const matchBetPlaceModal = localStorage.getItem("matchBetPlaceModal") ? JSON.parse(localStorage.getItem("matchBetPlaceModal")) : false 
-
+const history = useHistory()
   // const decodedCacheUrl = decodeURIComponent(cacheUrls);
   const scrollToRef = useRef(null);
   const inputRef2 = useRef(null); /////// desktop
@@ -82,8 +100,19 @@ const MatchDetails = () => {
     setCompltedModal(false);
   };
 
-  ///////////////////////-----------------------handling bet place Error modals------------------//////////////////////////
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 992);
 
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  ///////////////////////-----------------------handling bet place Error modals------------------//////////////////////////
+  useEffect(() => {
+    const storedModalState = localStorage.getItem("matchBetPlaceModal");
+    setMatchBetChipPlaceModal(storedModalState === "true");
+  }, []);
 
   const handleCloseAlertModal = () => {
     dispatch(ErrorModalClose());
@@ -121,9 +150,10 @@ const MatchDetails = () => {
     if(data){
 
       setsocketDetails(JSON.parse(data));
-    }else{
-      setsocketDetails("");
     }
+    // else{
+    //   setsocketDetails("");
+    // }
    }
 
    
@@ -226,6 +256,7 @@ const MatchDetails = () => {
       }
 
       socketSessionBet.on('sessionBetUpdate', (data) => {
+        alert("1")
         fetchBetLists(true,false,data.marketId)
       });
       
@@ -469,6 +500,7 @@ const MatchDetails = () => {
   }, [sportsBetsList]);
   ////////////////////-----------------------------placing bets ----------------------//////////////////
   useEffect(() => {
+    
     const maxCoinData = matchDetailsResponse?.maxMinCoins
       ? JSON.parse(matchDetailsResponse?.maxMinCoins)
       : {
@@ -477,6 +509,7 @@ const MatchDetails = () => {
         maximum_session_bet: null,
         minimum_session_bet: null,
       };
+   
 
     setminMaxCoins({
       max: maxCoinData?.maximum_match_bet,
@@ -486,6 +519,25 @@ const MatchDetails = () => {
       max: maxCoinData?.maximum_session_bet,
       min: maxCoinData?.minimum_session_bet,
     });
+
+
+    setIsTieCoin({
+      max: maxCoinData?.maximum_tie_coins > 0 ?  maxCoinData?.maximum_tie_coins :  maxCoinData?.maximum_match_bet,
+      min: maxCoinData?.minimum_match_bet,
+    });
+
+    setIsTossCoin({
+      max: maxCoinData?.maximum_toss_coins > 0 ?  maxCoinData?.maximum_toss_coins :  maxCoinData?.maximum_match_bet,
+      min: maxCoinData?.minimum_match_bet,
+    });
+
+    setIsMatchCoin({
+      max: maxCoinData?.maximum_matchOdds_coins > 0 ?  maxCoinData?.maximum_matchOdds_coins :  maxCoinData?.maximum_match_bet,
+      min: maxCoinData?.minimum_match_bet,
+    });
+
+    
+
   }, [matchDetailsResponse]);
   useEffect(() => {
     if (processingBet === false) {
@@ -798,43 +850,50 @@ const MatchDetails = () => {
     }
   }
 
-  const oddsColumn = [
+  const oddsColumn = isMobile ? [
     {
-      title: (
-        <div
-          style={{ display: "flex " }}
-          className="gx-bg-flex gx-justify-content-between minMax"
-        >
-          <span className="gx-text-uppercase">Match Odds</span>
-          <span style={{ textWrap: "nowrap" }}>
-            Min: {minMaxCoins?.min} Max: {minMaxCoins?.max}
-          </span>
-        </div>
-      ),
+      title: 
+       ""
+      ,
       dataIndex: "runnerName",
 
       key: "runnerName",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
 
       width: "60%",
       render: (text, record, index) => (
-        <div className="gx-bg-flex">
+        <div className="">
           <div className=" gx-font-weight-semi-bold gx-text-black gx-text-uppercase">
-            {text}
+          <BsGraphUp /> {text}
           </div>
           <div
             className={`gx-font-weight-semi-bold ${record.oddsposition > 0 ? "gx-text-primary" : "gx-text-red"
               }`}
           >
-            {record.oddsposition}
+            {record.oddsposition ? record.oddsposition : 0.00 }
           </div>
         </div>
       ),
     },
 
     {
-      title: "Lagai",
+      title: (
+        <div className="gx-text-black gx-font-weight-semi-bold">
+          <div className="gx-px-1">LAGAI</div>
+          <div className="gx-text-white"><BsArrowDownShort style={{backgroundColor:"#4fa0e7"}} className='gx-text-white h-4 w-4 gx-rounded-circle' size={16} /></div>
+        </div>
+      ),
       dataIndex: "lgaai",
       key: "lgaai",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
       width: "20%",
       onCell: (record, rowIndex) => ({
         className:
@@ -875,10 +934,20 @@ const MatchDetails = () => {
     },
 
     {
-      title: "Khai",
+      title: (
+        <div className="gx-text-black gx-font-weight-semi-bold">
+          <span className="gx-px-1">KHAI</span>
+          <span className="gx-text-white"><BsArrowDownShort style={{backgroundColor:"#FAA9BA"}} className='gx-text-white h-4 w-4 gx-rounded-circle' size={16} /></span>
+        </div>
+      ),
       dataIndex: "khaai",
       key: "khaai",
       width: "20%",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
       onCell: (record) => ({
         className:
           record.running_status === "SUSPENDED"
@@ -912,6 +981,157 @@ const MatchDetails = () => {
         >
           <span>{record.lgaaiprice}</span>
           <span className="gx-fs-xs">{record.lgaaisize}</span>
+        </div>
+      ),
+    },
+  ] :[
+    {
+      title: 
+       ""
+      ,
+      dataIndex: "runnerName",
+
+      key: "runnerName",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
+
+      width: "65%",
+      render: (text, record, index) => (
+        <div className="">
+          <div className=" gx-font-weight-semi-bold gx-text-black gx-text-uppercase">
+          <BsGraphUp /> {text}
+          </div>
+          <div
+            className={`gx-font-weight-semi-bold ${record.oddsposition > 0 ? "gx-text-primary" : "gx-text-red"
+              }`}
+          >
+            {record.oddsposition ? record.oddsposition : 0.00 }
+          </div>
+        </div>
+      ),
+    },
+
+    {
+      title: (
+        <div className="gx-text-black gx-font-weight-semi-bold">
+          <div className="gx-px-1">LAGAI</div>
+          <div className="gx-text-white"><BsArrowDownShort style={{backgroundColor:"#4fa0e7"}} className='gx-text-white h-4 w-4 gx-rounded-circle' size={16} /></div>
+        </div>
+      ),
+      dataIndex: "lgaai",
+      key: "lgaai",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
+      width: "10%",
+      onCell: (record, rowIndex) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground"
+            : "matchdtailsYesBackground",
+      }),
+      align: "center",
+      render: (text, record, index) => (
+        <div
+          onClick={() => {
+            if (Number(text) <= 0) return;
+            handlebet({
+              sessionName: record.runnerName,
+              odds: record.khaaiprice,
+              selectionId: record.selectionId,
+              type: "NO",
+              betType: "L",
+              runs:record.khaaisize,
+              betForMarketId: marketId,
+              marketId: marketId,
+              eventId: eventId,
+              oddsType: "matchOdds",
+              betFor: "matchOdds",
+              printData: "Lagai",
+              betfairMarketId: record.betfairMarketId,
+            });
+
+            matchBetPlaceModal && setShowBetPlaceModal(true)
+            !matchBetPlaceModal && scrollToElement();
+          }}
+          className="gx-font-weight-semi-bold gx-text-black gx-bg-flex gx-flex-column"
+        >
+          <span>{record.khaaiprice}</span>
+          <span className="gx-fs-xs">{record.khaaisize}</span>
+        </div>
+      ),
+    },
+
+    {
+      title: (
+        <div className="gx-text-black gx-font-weight-semi-bold">
+          <span className="gx-px-1">KHAI</span>
+          <span className="gx-text-white"><BsArrowDownShort style={{backgroundColor:"#FAA9BA"}} className='gx-text-white h-4 w-4 gx-rounded-circle' size={16} /></span>
+        </div>
+      ),
+      dataIndex: "khaai",
+      key: "khaai",
+      width: "10%",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
+      onCell: (record) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground"
+            : "matchdtailsNoBackground",
+      }),
+      align: "center",
+      render: (text, record, index) => (
+        <div
+          onClick={() => {
+            if (Number(text) <= 0) return;
+            handlebet({
+              sessionName: record.runnerName,
+              odds: record.lgaaiprice,
+              selectionId: record.selectionId,
+              type: "YES",
+              betType: "K",
+              runs:record.lgaaisize,
+              betForMarketId: marketId,
+              marketId: marketId,
+              eventId: eventId,
+              oddsType: "matchOdds",
+              betFor: "matchOdds",
+              printData: "Khai",
+              betfairMarketId: record.betfairMarketId,
+            });
+            matchBetPlaceModal && setShowBetPlaceModal(true)
+            !matchBetPlaceModal && scrollToElement();
+          }}
+          className="gx-font-weight-semi-bold gx-text-black gx-bg-flex gx-flex-column"
+        >
+          <span>{record.lgaaiprice}</span>
+          <span className="gx-fs-xs">{record.lgaaisize}</span>
+        </div>
+      ),
+    },
+  {
+      title: 
+       ""
+      ,
+      key: "teanName",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"transparent"
+        },
+      }),
+      width: "15%",
+      render: (text, record, index) => (
+        <div className="gx-bg-flex">
+         
         </div>
       ),
     },
@@ -968,7 +1188,7 @@ const MatchDetails = () => {
         <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between minMax">
           <span className="gx-text-uppercase">Tied Match</span>
           <span style={{ textWrap: "nowrap" }}>
-            Min: {minMaxCoins?.min} Max: {minMaxCoins?.max}
+            Min: {isTieCoin?.min} Max: {isTieCoin?.max}
           </span>
 
         </div>
@@ -1117,14 +1337,14 @@ const MatchDetails = () => {
     }
   }
 
-  const tossColumn = [
+  const tossColumn = isMobile ? [
     {
       title: (
-        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between minMax">
-          <span className="gx-text-uppercase">Toss</span>
-          <span style={{ textWrap: "nowrap" }}>
-            Min: {minMaxCoins?.min} Max: {minMaxCoins?.max}
-          </span>
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <span className="gx-text-uppercase text_blink">Toss Book</span>
+          {/* <span style={{ textWrap: "nowrap" }}>
+            Min: {isTossCoin?.min} Max: {isTossCoin?.max}
+          </span> */}
 
         </div>
       ),
@@ -1134,19 +1354,19 @@ const MatchDetails = () => {
 
       width: "60%",
       render: (text, record, index) => (
-        <div className="gx-bg-flex gx-text-black" >
+        <div className=" gx-text-black" >
           <div className=" gx-font-weight-semi-bold ">{text}</div>
           <div
             className={`gx-font-weight-semi-bold ${record.tossposition > 0 ? "gx-text-primary" : "gx-text-red"
               } `}
           >
-            {record.tossposition}
+            {record.tossposition ? record.tossposition : 0.00}
           </div>
         </div>
       ),
     },
     {
-      title: "Lagai",
+      title: "LAGAI",
       dataIndex: "lgaai",
       onCell: (record, rowIndex) => ({
         className:
@@ -1192,7 +1412,7 @@ const MatchDetails = () => {
     },
 
     {
-      title: "Khai",
+      title: "KHAI",
       dataIndex: "khaai",
       key: "khaai",
       width: "20%",
@@ -1233,6 +1453,136 @@ const MatchDetails = () => {
           <span className="gx-fs-xs">
             {record.khaaisize ? record.khaaisize : "100"}
           </span>
+        </div>
+      ),
+    },
+    
+  ] : [
+    {
+      title: (
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <span className="gx-text-uppercase text_blink">Toss Book</span>
+          {/* <span style={{ textWrap: "nowrap" }}>
+            Min: {isTossCoin?.min} Max: {isTossCoin?.max}
+          </span> */}
+
+        </div>
+      ),
+      dataIndex: "runnerName",
+
+      key: "runnerName",
+
+      width: "65%",
+      render: (text, record, index) => (
+        <div className=" gx-text-black" >
+          <div className=" gx-font-weight-semi-bold ">{text}</div>
+          <div
+            className={`gx-font-weight-semi-bold ${record.tossposition > 0 ? "gx-text-primary" : "gx-text-red"
+              } `}
+          >
+            {record.tossposition ? record.tossposition : 0.00}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "LAGAI",
+      dataIndex: "lgaai",
+      onCell: (record, rowIndex) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground"
+            : "matchdtailsYesBackground",
+      }),
+      key: "lgaai",
+      width: "10%",
+      align: "center",
+      render: (text, record, index) => (
+        <div
+          onClick={() => {
+            if (Number(record.lgaaiprice) <= 0) return;
+            handlebet({
+              sessionName: record.runnerName,
+              odds: record.lgaaiprice,
+              selectionId: record.selectionId,
+              type: "NO",
+              betType: "L",
+              // run:record.khaaisize,
+              // runs:"-",
+              betForMarketId: marketId,
+              marketId: marketId,
+              eventId: eventId,
+              oddsType: "toss",
+              betFor: "toss",
+              printData: "Lay",
+            });
+            matchBetPlaceModal && setShowBetPlaceModal(true)
+            !matchBetPlaceModal && scrollToElement();
+          }}
+          className=" gx-bg-flex gx-text-black gx-flex-column"
+        >
+          <span className="gx-font-weight-semi-bold">
+            {Number(record.lgaaiprice) * 100}
+          </span>
+          <span className="gx-fs-xs">
+            {record.lgaaisize ? record.lgaaisize : "100"}
+          </span>
+        </div>
+      ),
+    },
+
+    {
+      title: "KHAI",
+      dataIndex: "khaai",
+      key: "khaai",
+      width: "10%",
+      onCell: (record) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground"
+            : "matchdtailsNoBackground",
+      }),
+      align: "center",
+      render: (text, record, index) => (
+        <div
+          onClick={() => {
+            if (Number(record.khaaiprice) <= 0) return;
+            handlebet({
+              sessionName: record.runnerName,
+              odds: record.khaaiprice,
+              selectionId: record.selectionId,
+              type: "NO",
+              betType: "K",
+              // runs:"-",
+              // run:record.khaaisize,
+              betForMarketId: marketId,
+              marketId: marketId,
+              eventId: eventId,
+              oddsType: "toss",
+              betFor: "toss",
+              printData: "Back",
+            });
+            matchBetPlaceModal && setShowBetPlaceModal(true)
+            !matchBetPlaceModal && scrollToElement();
+          }}
+          className=" gx-text-black gx-bg-flex gx-flex-column"
+        >
+          <span className="gx-font-weight-semi-bold">
+            {Number(record.khaaiprice) * 100}
+          </span>
+          <span className="gx-fs-xs">
+            {record.khaaisize ? record.khaaisize : "100"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: "",
+      key: "xyz",
+      width: "15%",
+      render: (text, record, index) => (
+        <div className="" >
+          
         </div>
       ),
     },
@@ -1342,14 +1692,15 @@ const MatchDetails = () => {
       }
     });
   }
-  const fancyColumns = [
+  const fancyColumns = isMobile ? [
     {
       title: (
-        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between minMax">
-          <span className="gx-text-uppercase">Session</span>
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <div><span className="gx-text-uppercase text_blink gx-pr-2">Fancy</span>
           <span style={{ textWrap: "nowrap" }}>
             Min: {sessionCoin?.min} Max: {sessionCoin?.max}
-          </span>
+          </span></div>
+          <BsInfoCircleFill onClick={()=>{openFancyRuleModal()}} style={{color:"#208091"}} className="gx-fs-xl" />
 
         </div>
       ),
@@ -1361,11 +1712,31 @@ const MatchDetails = () => {
       render: (text, record, index) => {
         return (
           <div className=" gx-my-0 gx-text-black gx-bg-flex gx-flex-column">
-            <div className="">
+            <div className="gx-bg-flex">
               <div className="gx-font-weight-semi-bold">{text}</div>
-              <div className="gx-font-weight-semi-bold gx-fs-sm">
+              {/* <div className="gx-font-weight-semi-bold gx-fs-sm">
                 session Limit : {record.max}
-              </div>
+              </div> */}
+               <div style={{gap:"5px"}} className="gx-bg-flex">
+               <Dropdown
+  overlay={
+    <Menu>
+      <Menu.Item>
+        Min: 100
+      </Menu.Item>
+      <Menu.Item>
+        Max: {record.max}
+      </Menu.Item>
+    </Menu>
+  }
+  // getPopupContainer={trigger => trigger.parentElement}
+  trigger={['click']}
+>
+  <BsInfoCircleFill  style={{ color: "#208091" }} className="gx-fs-xl" />
+</Dropdown>
+             
+               <Button onClick={()=>{getSessionDetailBySelectionId(record.session_id);setSessionBookModal(true)}} size="small" className="gx-mb-0 gx-bg-grey gx-font-weight-semi-bold gx-text-light">Book</Button>
+               </div>
             </div>
 
             {record?.remark && (
@@ -1487,7 +1858,189 @@ const MatchDetails = () => {
         );
       },
     },
-  ];
+  ] :
+  [
+    {
+      title: (
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <div><span className="gx-text-uppercase text_blink gx-pr-2">Fancy</span>
+          <span style={{ textWrap: "nowrap" }}>
+            Min: {sessionCoin?.min} Max: {sessionCoin?.max}
+          </span></div>
+          <BsInfoCircleFill onClick={()=>openFancyRuleModal()} style={{color:"#208091"}} className="gx-fs-xl" />
+
+        </div>
+      ),
+      dataIndex: "session_name",
+      key: "session_name",
+      width: "65%",
+      padding: "0px",
+
+      render: (text, record, index) => {
+        return (
+          <div className=" gx-my-0 gx-text-black gx-bg-flex gx-flex-column">
+            <div className="gx-bg-flex">
+              <div className="gx-font-weight-semi-bold">{text}</div>
+              {/* <div className="gx-font-weight-semi-bold gx-fs-sm">
+                session Limit : {record.max}
+              </div> */}
+               <div style={{gap:"5px"}} className="gx-bg-flex">
+               <Dropdown
+  overlay={
+    <Menu>
+      <Menu.Item>
+        Min: 100
+      </Menu.Item>
+      <Menu.Item>
+        Max: {record.max}
+      </Menu.Item>
+    </Menu>
+  }
+  // getPopupContainer={trigger => trigger.parentElement}
+  trigger={['click']}
+>
+  <BsInfoCircleFill style={{ color: "#208091" }} className="gx-fs-xl" />
+</Dropdown>
+             
+               <Button onClick={()=>{getSessionDetailBySelectionId(record.session_id);setSessionBookModal(true)}} size="small" className="gx-mb-0 gx-bg-grey gx-font-weight-semi-bold gx-text-light">Book</Button>
+               </div>
+            </div>
+
+            {record?.remark && (
+              <marquee className=" gx-font-weight-semi-bold gx-text-red ">
+                {record?.remark}
+              </marquee>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      title: "No",
+      dataIndex: "oddsNo",
+      key: "oddsNo",
+      width: "10%",
+      onCell: (record, rowIndex) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground matchdtailsNoBackground"
+            : "matchdtailsNoBackground",
+      }),
+      align: "center",
+      render: (text, record) => {
+        return record.running_status !== "SUSPENDED" ? (
+          <div
+            onClick={() => {
+              if (record.runsNo <= 0) return;
+              handlebet({
+                sessionName: record.session_name,
+                odds: record.oddsNo,
+                runs: record.runsNo,
+                selectionId: record.session_id,
+                type: "N",
+                betForMarketId: marketId,
+                marketId: marketId,
+                eventId: eventId,
+                oddsType: "fancy",
+                betFor: "fancy",
+                printData: "No",
+              });
+              matchBetPlaceModal && setShowBetPlaceModal(true)
+              !matchBetPlaceModal && scrollToElement();
+            }}
+          >
+            <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+              {record.runsNo}
+            </div>
+            <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+              {(Number(text) * 100).toFixed(0)}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="gx-fs-xs  gx-fs-lg gx-text-black gx-font-weight-semi-bold">
+              0
+            </div>
+            <div className="gx-fs-xs   gx-fs-xs gx-text-black gx-font-weight-semi-bold">
+              0.00
+            </div>
+          </>
+        );
+      },
+    },
+    {
+      title: "YES",
+      dataIndex: "oddsYes",
+      width: "10%",
+      onCell: (record) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground matchdtailsYesBackground"
+            : "matchdtailsYesBackground",
+      }),
+      key: "oddsYes",
+
+      align: "center",
+      render: (text, record) => {
+        return record.running_status !== "SUSPENDED" ? (
+          <div
+            onClick={() => {
+              if (record.runsYes <= 0) return;
+              handlebet({
+                sessionName: record.session_name,
+                odds: record.oddsYes,
+                runs: record.runsYes,
+                selectionId: record.session_id,
+                type: "Y",
+                betForMarketId: marketId,
+                marketId: marketId,
+                eventId: eventId,
+                oddsType: "fancy",
+                betFor: "fancy",
+                printData: "Yes",
+              });
+              matchBetPlaceModal && setShowBetPlaceModal(true)
+              !matchBetPlaceModal && scrollToElement();
+            }}
+          >
+            <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+              {record.runsYes}
+            </div>
+            <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+              {(Number(text) * 100).toFixed(0)}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div
+            >
+              <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+                0
+              </div>
+              <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+                0.00
+              </div>
+            </div>
+          </>
+        );
+      },
+    },
+    {
+      title:'',
+      key: "xyz",
+      width: "15%",
+      padding: "0px",
+
+      render: (text, record, index) => {
+        return (
+          <div className=" ">
+
+          </div>
+        );
+      },
+    },
+  ]
+  ;
 
   //........................................No Commition fancy Data......................................................//
 
@@ -1592,14 +2145,16 @@ const MatchDetails = () => {
       }
     });
   }
-  const NoCommfancyColumns = [
+  const NoCommfancyColumns = isMobile ?  [
     {
       title: (
-        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between minMax">
-          <span>No Comm Fancy</span>
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <div><span className="gx-text-uppercase text_blink gx-pr-2">No Comm Fancy</span>
           <span style={{ textWrap: "nowrap" }}>
             Min: {sessionCoin?.min} Max: {sessionCoin?.max}
           </span>
+          </div>
+          {/* <BsInfoCircleFill style={{color:"#208091"}} className="gx-fs-xl" /> */}
 
         </div>
 
@@ -1611,16 +2166,36 @@ const MatchDetails = () => {
 
       render: (text, record, index) => {
         return (
-          <div className="gx-text-black gx-my-0 gx-bg-flex gx-flex-column">
-            <div className="">
+          <div className=" gx-my-0 gx-text-black gx-bg-flex gx-flex-column">
+            <div className="gx-bg-flex">
               <div className="gx-font-weight-semi-bold">{text}</div>
-              <div className="gx-font-weight-semi-bold gx-fs-sm">
+              {/* <div className="gx-font-weight-semi-bold gx-fs-sm">
                 session Limit : {record.max}
-              </div>
+              </div> */}
+               <div style={{gap:"5px"}} className="gx-bg-flex">
+               <Dropdown
+  overlay={
+    <Menu>
+      <Menu.Item>
+        Min: 100
+      </Menu.Item>
+      <Menu.Item>
+        Max: {record.max}
+      </Menu.Item>
+    </Menu>
+  }
+  // getPopupContainer={trigger => trigger.parentElement}
+  trigger={['click']}
+>
+  <BsInfoCircleFill style={{ color: "#208091" }} className="gx-fs-xl" />
+</Dropdown>
+             
+               <Button size="small" className="gx-mb-0 gx-bg-grey gx-font-weight-semi-bold gx-text-light">Book</Button>
+               </div>
             </div>
 
             {record?.remark && (
-              <marquee className="gx-font-weight-semi-bold gx-text-red ">
+              <marquee className=" gx-font-weight-semi-bold gx-text-red ">
                 {record?.remark}
               </marquee>
             )}
@@ -1735,6 +2310,188 @@ const MatchDetails = () => {
               0.00
             </div>
           </>
+        );
+      },
+    },
+    
+  ] :  [
+    {
+      title: (
+        <div style={{ display: "flex " }} className="gx-bg-flex gx-justify-content-between ">
+          <div><span className="gx-text-uppercase text_blink gx-pr-2">No Comm Fancy</span>
+          <span style={{ textWrap: "nowrap" }}>
+            Min: {sessionCoin?.min} Max: {sessionCoin?.max}
+          </span>
+          </div>
+          {/* <BsInfoCircleFill style={{color:"#208091"}} className="gx-fs-xl" /> */}
+
+        </div>
+
+      ),
+      dataIndex: "session_name",
+      key: "session_name",
+      width: "65%",
+      padding: "0px",
+
+      render: (text, record, index) => {
+        return (
+          <div className=" gx-my-0 gx-text-black gx-bg-flex gx-flex-column">
+            <div className="gx-bg-flex">
+              <div className="gx-font-weight-semi-bold">{text}</div>
+              {/* <div className="gx-font-weight-semi-bold gx-fs-sm">
+                session Limit : {record.max}
+              </div> */}
+               <div style={{gap:"5px"}} className="gx-bg-flex">
+               <Dropdown
+  overlay={
+    <Menu>
+      <Menu.Item>
+        Min: 100
+      </Menu.Item>
+      <Menu.Item>
+        Max: {record.max}
+      </Menu.Item>
+    </Menu>
+  }
+  // getPopupContainer={trigger => trigger.parentElement}
+  trigger={['click']}
+>
+  <BsInfoCircleFill style={{ color: "#208091" }} className="gx-fs-xl" />
+</Dropdown>
+             
+               <Button size="small" className="gx-mb-0 gx-bg-grey gx-font-weight-semi-bold gx-text-light">Book</Button>
+               </div>
+            </div>
+
+            {record?.remark && (
+              <marquee className=" gx-font-weight-semi-bold gx-text-red ">
+                {record?.remark}
+              </marquee>
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      title: "No",
+      dataIndex: "oddsNo",
+      key: "oddsNo",
+      width: "10%",
+      onCell: (record, rowIndex) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground matchdtailsNoBackground"
+            : "matchdtailsNoBackground",
+      }),
+      align: "center",
+      render: (text, record) => {
+        return record.running_status !== "SUSPENDED" ? (
+          <div
+            onClick={() => {
+              if (record.runsNo <= 0) return;
+              handlebet({
+                sessionName: record.session_name,
+                odds: record.oddsNo,
+                runs: record.runsNo,
+                selectionId: record.session_id,
+                type: "N",
+                betForMarketId: marketId,
+                marketId: marketId,
+                eventId: eventId,
+                oddsType: "fancy",
+                betFor: "fancy",
+                printData: "No",
+              });
+              matchBetPlaceModal && setShowBetPlaceModal(true)
+              !matchBetPlaceModal && scrollToElement();
+            }}
+          >
+            <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+              {record.runsNo}
+            </div>
+            <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+              {(Number(text) * 100).toFixed(0)}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div
+            >
+              <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+                0
+              </div>
+              <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+                0.00
+              </div>
+            </div>
+          </>
+        );
+      },
+    },
+    {
+      title: "YES",
+      dataIndex: "oddsYes",
+      width: "10%",
+      onCell: (record) => ({
+        className:
+          record.running_status === "SUSPENDED"
+            ? "matchdtailsSuspendBackground matchdtailsYesBackground"
+            : "matchdtailsYesBackground",
+      }),
+      key: "oddsYes",
+
+      align: "center",
+      render: (text, record) => {
+        return record.running_status !== "SUSPENDED" ? (
+          <div
+            onClick={() => {
+              if (record.runsYes <= 0) return;
+              handlebet({
+                sessionName: record.session_name,
+                odds: record.oddsYes,
+                runs: record.runsYes,
+                selectionId: record.session_id,
+                type: "Y",
+                betForMarketId: marketId,
+                marketId: marketId,
+                eventId: eventId,
+                oddsType: "fancy",
+                betFor: "fancy",
+                printData: "Yes",
+              });
+              matchBetPlaceModal && setShowBetPlaceModal(true)
+              !matchBetPlaceModal && scrollToElement();
+            }}
+          >
+            <div className="gx-font-weight-semi-bold gx-fs-lg gx-text-black">
+              {record.runsYes}
+            </div>
+            <div className="gx-font-weight-semi-bold gx-fs-xs gx-text-black">
+              {(Number(text) * 100).toFixed(0)}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="gx-fs-xs  gx-fs-lg gx-text-black gx-font-weight-semi-bold">
+              0
+            </div>
+            <div className="gx-fs-xs  gx-fs-xs gx-text-black gx-font-weight-semi-bold">
+              0.00
+            </div>
+          </>
+        );
+      },
+    },
+    {
+      title: '',
+      key: "session_namefgbnh",
+      width: "15%",
+      padding: "0px",
+
+      render: (text, record, index) => {
+        return (
+          <div className="gx-text-black gx-my-0 gx-bg-flex gx-flex-column"></div>
+           
         );
       },
     },
@@ -2052,11 +2809,87 @@ const MatchDetails = () => {
   //   return
   // }
 
+  const handleBetModalToggle = () => {
+    const newState = !matchBetPlaceModal;
+    setMatchBetChipPlaceModal(newState);
+    updateBetChipsModal()
+  };
+  const updateBetChipsModal = async () => {
+    try {
+      const currentBetChipModalStatus = localStorage.getItem("matchBetPlaceModal") ? JSON.parse(localStorage.getItem("matchBetPlaceModal")) : false
+      const reqData = {
+        "status": !currentBetChipModalStatus
+      }
+      const result = await httpPatch("user/updateBetChipsModal", reqData);
+
+      if (result) {
+        if (result.error === false) {
+          localStorage.setItem('matchBetPlaceModal', JSON.stringify(result?.data?.betChipsModal));
+          NotificationManager.success(result?.message, "Success", 1000, () => {
+            alert('callback');
+          });
+        } else {
+          // Add error handling code for when result.error is true
+          console.error("Error occurred: ", result.message);
+        }
+      } else {
+        console.error("No result returned from the server.");
+      }
+    } catch (error) {
+      // Handle any exceptions that might occur during the HTTP request
+      console.error("An exception occurred: ", error.message);
+    }
+  };
+
+
+
+
+  //////////////////////////------------------------------------ handlng session book by selectionId--------------///////////////////////////////
+
+  const  getSessionDetailBySelectionId = async (selectionId)=>{
+    try{
+      const reqData ={
+        marketId: marketId,
+    selectionId: selectionId
+      }
+    const result = await httpPost("sports/getSessionPositionBySelectionId" ,reqData)
+    if (result) {
+      if (result.error === false) {
+        setSessionBookData(result?.data)
+      } else {
+   
+        console.error("Error occurred: ", result.message);
+      }
+    } else {
+      console.error("No result returned from the server.");
+    }
+  } catch (error) {
+    
+    console.error("An exception occurred: ", error.message);
+  }
+      }
+
+      const handleCloseSessionBookModal = ()=>{
+        setSessionBookData(null)
+        setSessionBookModal(false)
+      }
+
+
+      const openFancyRuleModal = ()=>{
+        setFancyRuleModal(true)
+      }
+      const closeFancyRuleModal = ()=>{
+        setFancyRuleModal(false)
+      }
+
   return (
-    <UrbetLayout>
-    <Auxiliary>
+   <UrbetLayout>
+     <Auxiliary>
       {
         showBetPlaceModal && timeLeft > 0 && <BetPlaceModal setShowBetPlaceModal={setShowBetPlaceModal} timeLeft={timeLeft} betModalData={betModalData} inputValue={inputValue} setInputValue={setInputValue} processingBet={processingBet} betChips={betChips} setTimeLeft={setTimeLeft} placeNewBet={placeNewBet} options={options} handleInputChange={handleInputChange} />
+      }
+      {
+        sessionBookModal && <SessionBookDataModal sessionBookData={sessionBookData} handleCloseSessionBookModal={handleCloseSessionBookModal} />
       }
 
       {completedModal && (
@@ -2067,6 +2900,7 @@ const MatchDetails = () => {
           totalSessionPlusMinus={totalSessionPlusMinus}
         />
       )}
+      {fancyRuleModal && <FancyRuleModal closeFancyRuleModal={closeFancyRuleModal} />}
       {/* <AlertModal  onConfirm={handleCloseAlertModal} betStatus={betStatus} /> */}
       {betStatus && (
         <AlertModal
@@ -2075,13 +2909,51 @@ const MatchDetails = () => {
         />
       )}
 
-      <Row className="gx-bg-flex gx-align-items-center gx-justify-content-between gx-bg-grey">
+<Row justify={"space-between"} className="urbet_layout_header_top gx-px-3 gx-py-2 gx-bg-grey">
+        <Col className="gx-bg-flex gx-align-items-center gx-justify-content-center">
+        <Button onClick={()=>history.goBack()} size="small" className="gx-bg-yellow  gx-mb-0 gx-text-black">Back</Button>
+        </Col>
+        <Col className="gx-bg-flex gx-align-items-center gx-justify-content-center">
+        <img  onClick={() => setActiveTabTv((tv) => !tv)} style={{height:"20px"}} alt="tv" src="/images/live-tv.png"/>
+        <div  onClick={() => setActiveTabTv((tv) => !tv)}  className=" gx-text-white">Live TV</div>
+        </Col>
+      </Row>
+
+      {/* <Row className="gx-bg-flex gx-align-items-center gx-justify-content-between gx-bg-grey">
+        <div>
         <span
           onClick={() => setActiveTabTv((tv) => !tv)}
           className="gx-bg-primary gx-px-3 gx-py-1 gx-font-weight-semi-bold gx-text-white"
         >
           TV
         </span>
+        <span className="gx-px-2 ">
+        <Link to='/main/edit-stakes'>
+                <span  className=" gx-px-1 gx-py-1 gx-font-weight-semi-bold gx-text-uppercase gx-text-white">
+                <SettingFilled style={{ fontSize: '18px' }}/>
+                </span>
+               </Link>
+         
+          </span>
+        </div>
+        
+        <div className="gx-py-1">
+         <span className="">
+
+         <Switch
+              onChange={handleBetModalToggle}
+              checked={matchBetChipPlaceModal}
+              checkedChildren="ON"
+              unCheckedChildren="OFF"
+              size='small'
+              className="gx-mx-3"
+              style={{
+                backgroundColor: matchBetChipPlaceModal ? "green" : "red",
+                transform: "scale(1.3)",
+               
+              }}
+            />
+         </span>
         <span
           onClick={() => {
             setActiveTabFame((frame) => !frame);
@@ -2090,15 +2962,17 @@ const MatchDetails = () => {
         >
           FS
         </span>
-      </Row>
+        </div>
+      
+      </Row> */}
       <Row
         justify={"center"}
-        className="gx-bg-flex gx-align-items-center gx-justify-content-between"
+        className="   gx-mt-1 gx-bg-flex gx-align-items-center gx-justify-content-between"
       >
         {activeTabTv && (
           <Col
             xs={26}
-            className="gx-bg-flex gx-w-100 gx-justify-content-center"
+            className="gx-bg-flex urbet_layout_header_top gx-w-100 gx-justify-content-center"
           >
             <div className="gx-w-100">
               <iframe
@@ -2111,13 +2985,15 @@ const MatchDetails = () => {
           </Col>
         )}
       </Row>
-      <Row justify={"center"}>
-        <Col xs={24} sm={24} className="gx-col-full">
+      <Row justify={"center"} className="">
+    
+        <Col xs={24} sm={24} className="gx-col-full ">
+        
         {/* matchDetailsResponse?.scoreIframe  */}
           {matchIframeUrl ? (
             <Row
               style={{ height: `${activeTabFrame ? "220px" : "110px"}` }}
-              className=""
+              className="urbet_layout_header_top_bottom"
             >
               <iframe
                 style={{ width: "100%", height: "100%", border: "none" }}
@@ -2129,7 +3005,21 @@ const MatchDetails = () => {
           ) : null}
         </Col>
 
-        <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
+        <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0 urbet_layout_header_top" xs={24} sm={24}>
+       <div
+          className="gx-bg-flex gx-justify-content-between gx-bg-grey gx-text-white gx-fs-md gx-px-2"
+        >
+
+          <div className="gx-pt-1"><span className="gx-text-uppercase">{matchDetailsResponse?.matchName}</span>/
+          <span className="gx-text-uppercase text_blink">Match Odds</span>
+          <span style={{ textWrap: "nowrap" }}>
+            Min: {isMatchCoin?.min} Max: {isMatchCoin?.max}
+          </span></div>
+          <Button  onClick={() => {
+            setActiveTabFame((frame) => !frame);
+          }} size="small" className="gx-rounded-xxl gx-mb-0 gx-font-weight-semi-bold gx-fs-lg gx-text-white gx-bg-yellow">score</Button>
+        </div>
+      
           {matchDetailsResponse?.isMatchOdds &&
             socketDetails?.find((el) => el.marketType === "Match Odds") && (
               <Table
@@ -2139,14 +3029,17 @@ const MatchDetails = () => {
                 dataSource={oddsData}
                 columns={oddsColumn}
                 pagination={false}
-                bordered
+              locale={{
+                emptyText:<div className="gx-text-center
+                ">No Data found</div>
+              }}
                 scroll={{ x: true }}
                 rowClassName="no-hover"
                 style={{ marginTop: "16px" }}
               />
             )}
         </Col>
-        <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
+        {/* <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
           {data && data.length > 0 ? (
             <Table
               className="gx-w-100 custom-ant-table gx-mx-0 gx-my-0"
@@ -2161,8 +3054,8 @@ const MatchDetails = () => {
               style={{ marginTop: "16px" }}
             />
           ) : null}
-        </Col>
-        <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
+        </Col> */}
+        {/* <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
           {matchDetailsResponse?.isTieOdds &&
             matchScoreDetails?.team_data?.length <= 2 &&
             socketDetails?.find((el) => el.marketType == "Tied Match") && (
@@ -2178,7 +3071,7 @@ const MatchDetails = () => {
                 style={{ marginTop: "16px" }}
               />
             )}
-        </Col>
+        </Col> */}
         <Col className="gx-px-0 gx-py-0 gx-mx-0 gx-my-0" xs={24} sm={24}>
           {matchDetailsResponse?.isToss && tossData && tossData.length > 0 ? (
             <Table
@@ -2189,7 +3082,7 @@ const MatchDetails = () => {
               dataSource={tossData}
               columns={tossColumn}
               pagination={false}
-              bordered
+             
               style={{ marginTop: "16px" }}
             />
           ) : null}
@@ -2204,7 +3097,7 @@ const MatchDetails = () => {
               columns={fancyColumns}
               cellPaddingBlockSM
               pagination={false}
-              bordered
+          
               style={{ marginTop: "16px" }}
             />
           ) : null}
@@ -2220,7 +3113,7 @@ const MatchDetails = () => {
               columns={NoCommfancyColumns}
               cellPaddingBlockSM
               pagination={false}
-              bordered
+     
               style={{ marginTop: "16px" }}
             />
           ) : null}
@@ -2498,7 +3391,12 @@ const MatchDetails = () => {
         </Col> */}
         {/* )} */}
       </Row>
-      <Row justify={"center"}>
+      <Row className="urbet_layout_header_top gx-bg-white gx-py-2">
+        <Col xs={24}>
+        <div onClick={()=>{history.push(`/main/complted-bets/${marketId}`)}} className="gx-text-center gx-text-primary">See All Completed Bets</div>
+        </Col>
+      </Row>
+      {/* <Row justify={"center"}>
         <Col className="gx-px-0 gx-py-2 gx-my-1 gx-justify-content-center">
           <Button
             className="gx-bg-grey gx-text-white gx-text-uppercase gx-font-weight-semi-bold"
@@ -2526,9 +3424,10 @@ const MatchDetails = () => {
             />
           )}
         </Col>
-      </Row>
+      </Row> */}
+
     </Auxiliary>
-    </UrbetLayout>
+   </UrbetLayout>
   );
 };
 export default MatchDetails;

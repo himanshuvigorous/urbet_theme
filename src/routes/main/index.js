@@ -37,6 +37,7 @@ import VirtualGames from "./VirtualGames";
 import TeenpattiTESTTheme2 from "./TeenpattiTESTTheme2";
 import Cards32ATheme2 from "./Cards32ATheme2";
 import Cards32BTheme2 from "./Cards32BTheme2";
+import CompletedMatchBets from "./CompletedMatchBets";
 
 
 
@@ -70,6 +71,7 @@ const Main = ({match}) => (
     <Route path={`${match.url}/teen/:eventId`} component={TeenpattiOneDayTheme2} />
     <Route path={`${match.url}/worli2/:eventId`} component={InstantWorliTheme2} />
     <Route path={`${match.url}/virtual-games/:gameName?`} component={VirtualGames} />
+    <Route path={`${match.url}/complted-bets/:marketId?`} component={CompletedMatchBets} />
     <Route path={`${match.url}/iframe-casino/:gameId?`} component={IframeCasino} />
     <Route path={`${match.url}/teen9/:eventId?`} component={TeenpattiTESTTheme2} />
     <Route path={`${match.url}/card32-a/:eventId?`} component={Cards32ATheme2} />

@@ -37,7 +37,7 @@ const UserInfo = () => {
         placement="bottomRight"
         trigger={['click']} className="gx-border-redius0"
       >
-        <div className="gx-fs-xl  gx-font-weight-normal gx-bg-flex  gx-justify-item-center gx-gap-4 gx-text-white gx-pointer">
+        <div className="gx-fs-lg  gx-font-weight-normal gx-bg-flex  gx-justify-item-center gx-gap-4 gx-text-white gx-pointer">
           <span>{userInfo?.data?.name}</span>
           <span className="gx-pt-0.5"><i className="icon icon-chevron-down" /></span>
         </div>

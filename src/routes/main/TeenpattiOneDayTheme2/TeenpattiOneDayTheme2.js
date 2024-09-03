@@ -18,6 +18,7 @@ import { LockOutlined } from "@ant-design/icons";
 import CasinoAlertModal from "../../../components/casino_components/CasinoAlertModal/CasinoAlertModal";
 import DecalaredCasinoBetList from "../../../components/casino_components/DecalaredCasinoBetList/DecalaredCasinoBetList";
 import { FaLock } from "react-icons/fa";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
 
 const { Text } = Typography;
 
@@ -648,7 +649,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
     let PlayerA = data && data.t1 && data.t1[0] ? data.t1[0] : {};
     let PlayerB = data && data.t1 && data.t1[1] ? data.t1[1] : {};
     return (
-      <>
+      <UrbetLayout>
 
         <div className={`gx-overflow-y-auto`}>
           {
@@ -701,11 +702,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
           <Row justify="center">
             <Col
               xs={24} // Full width on extra small screens
-              sm={24} // Full width on small screens
-              md={24} // Full width on medium screens
-              lg={10} // Approximately 41% width on large screens
-              xl={10} // Approximately 41% width on extra large screens
-              xxl={10} // Approximately 41% width on double extra large screens
+              
             >
 
               <PageHeaderTheme
@@ -776,18 +773,18 @@ class TeenpattiOneDayTheme2 extends React.Component {
                 </div>
               </Card>
 
-              <Card bordered className="gx-bg-white gx-text-white gx-px-3 gx-my-0 gx-border">
+              <Card style={{border:"5px solid yellow"}} bordered className="gx-bg-white gx-text-white gx-px-3 gx-my-0 gx-border">
 
                 <Row className="gx-text-center gx-fs-sm gx-border-bottom">
                   <Col span={12} className="gx-bg-grey  gx-py-2 gx-text-left">
-                    MIN: {minStake ? minStake : "100"}&nbsp;
-                    MAX: {maxStake ? maxStake : "10000"}
+                    {/* MIN: {minStake ? minStake : "100"}&nbsp;
+                    MAX: {maxStake ? maxStake : "10000"} */}
                   </Col>
                   <Col span={6} className="gx-py-2 " style={{ backgroundColor: '#72BBEF' }}>
-                    <Text strong className="gx-text-black gx-text-uppercase gx-font-weight-semi-bold">lagai</Text>
+                    <Text strong className="gx-text-black gx-text-uppercase gx-font-weight-semi-bold">Back</Text>
                   </Col>
                   <Col span={6} className="gx-py-2" style={{ backgroundColor: '#FAA9BA' }}>
-                    <Text strong className="gx-text-black gx-text-uppercase gx-font-weight-semi-bold">khai</Text>
+                    <Text strong className="gx-text-black gx-text-uppercase gx-font-weight-semi-bold">Lay</Text>
                   </Col>
                 </Row>
 
@@ -805,7 +802,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
                     </Row>
                   </Col>
                   {PlayerA && PlayerA.gstatus === 'ACTIVE' ? (
-                    <Col span={6} className="gx-position-relative " style={{ backgroundColor: '#72BBEF' }}>
+                    <Col span={6} className="gx-position-relative gx-bg-cyan " >
                       <div className="gx-flex-column  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
                         <div className="gx-text-center" onClick={() => this.handleBackOpen({ data: PlayerA, type: "Yes", odds: PlayerA.b1 - oddsDifference, nat: PlayerA.nat ? PlayerA.nat : PlayerA.nation }, this.section1Ref)}>
                           <Text strong className="gx-text-18 gx-text-black">{PlayerA && PlayerA.b1 ? (PlayerA.b1 / 100).toFixed(2) : "-"}</Text>
@@ -814,7 +811,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
                     </Col>
                   ) :
                     (
-                      <Col span={6} style={{ backgroundColor: '#72BBEF' }} className="gx-position-relative gx-bg-flex gx-justify-content-center gx-align-items-center">
+                      <Col span={6}  className="gx-position-relative gx-bg-cyan gx-bg-flex gx-justify-content-center gx-align-items-center">
                         <div className="gx-text-center">
                           <Text strong className="gx-text-18 gx-text-black">{PlayerA && PlayerA.b1 ? (PlayerA.b1 / 100).toFixed(2) : "-"}</Text>
                         </div>
@@ -863,7 +860,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
                     </Row>
                   </Col>
                   {PlayerB && PlayerB.gstatus === 'ACTIVE' ? (
-                    <Col span={6} className="gx-position-relative " style={{ backgroundColor: '#72BBEF' }}>
+                    <Col span={6} className="gx-position-relative gx-bg-cyan " >
                       <div className="gx-flex-column  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2 ">
                         <div className="gx-text-center" onClick={() => this.handleBackOpen({ data: PlayerB, type: "Yes", odds: PlayerB.b1 - oddsDifference, nat: PlayerB.nat ? PlayerB.nat : PlayerB.nation }, this.section1Ref)}>
                           <Text strong className="gx-text-18 gx-text-black">{PlayerB && PlayerB.b1 ? (PlayerB.b1 / 100).toFixed(2) : "-"}</Text>
@@ -872,7 +869,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
                     </Col>
                   ) :
                     (
-                      <Col span={6} style={{ backgroundColor: '#72BBEF' }} className="gx-position-relative gx-bg-flex gx-justify-content-center gx-align-items-center">
+                      <Col span={6}  className="gx-position-relative gx-bg-flex gx-justify-content-center gx-bg-cyan gx-align-items-center">
                         <div className="gx-text-center" onClick={() => this.handleBackOpen({ data: PlayerB, type: "Yes", odds: PlayerB.b1 - oddsDifference, nat: PlayerB.nat ? PlayerB.nat : PlayerB.nation }, this.section1Ref)}>
                           <Text strong className="gx-text-18 gx-text-black">{PlayerB && PlayerB.b1 ? (PlayerB.b1 / 100).toFixed(2) : "-"}</Text>
                         </div>
@@ -957,16 +954,16 @@ class TeenpattiOneDayTheme2 extends React.Component {
                 : null}
 
 
-              <Row justify={"center"} className="gx-my-2">
-                {/* <Col span={8}> */}
+              {/* <Row justify={"center"} className="gx-my-2">
+               
                 <Button className="gx-bg-grey gx-text-white gx-font-weight-semi-bold" onClick={() => {
                   this.setState({ decalaredListModal: true });
                   this.declaredbetListfunc();
                 }}>
                   Completed Casino Bets
                 </Button>
-                {/* </Col> */}
-              </Row>
+                
+              </Row> */}
 
               {/* <div className="pb-20"> */}
               {betList && betList.length > 0 ?
@@ -991,7 +988,7 @@ class TeenpattiOneDayTheme2 extends React.Component {
           </Row >
 
         </div >
-      </>
+      </UrbetLayout>
     );
   }
 }

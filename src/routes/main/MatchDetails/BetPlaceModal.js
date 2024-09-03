@@ -172,6 +172,10 @@ function BetPlaceModal({ setShowBetPlaceModal, timeLeft, betModalData, inputValu
             </Col>
           )}
         </Row>
+
+
+
+        
         <Row id="betPLaceModal"
          justify={"center"}
          >

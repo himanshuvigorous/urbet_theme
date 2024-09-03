@@ -30,6 +30,7 @@ import { LockOutlined } from '@ant-design/icons';
 import PlaceBetMobileBmxBet from "../../../components/casino_components/PlaceBetMobileBmxBet/PlaceBetMobileBmxBet";
 import CasinoAlertModal from "../../../components/casino_components/CasinoAlertModal/CasinoAlertModal";
 import DecalaredCasinoBetList from "../../../components/casino_components/DecalaredCasinoBetList/DecalaredCasinoBetList";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
 
 const { Text } = Typography;
 
@@ -588,7 +589,7 @@ class AmarAkbarAnthony extends React.Component {
     let CardK = data && data.t2 && data.t2[19] ? data.t2[19] : {};
     let t1 = data && data.t1 && data.t1[0] ? data.t1[0] : {};
     return (
-      <>
+      <UrbetLayout>
 
         <div className={`gx-overflow-y-auto`}>
           {/* {
@@ -642,11 +643,7 @@ class AmarAkbarAnthony extends React.Component {
           <Row justify="center">
             <Col
               xs={24} // Full width on extra small screens
-              sm={24} // Full width on small screens
-              md={24} // Full width on medium screens
-              lg={10} // Approximately 41% width on large screens
-              xl={10} // Approximately 41% width on extra large screens
-              xxl={10} // Approximately 41% width on double extra large screens
+             
             >
               <PageHeaderTheme
                 PageTitle={"AAA"}
@@ -701,7 +698,7 @@ class AmarAkbarAnthony extends React.Component {
 
                   <Col justify={"center"} xs={24}> */}
 
-              <Row justify={"center"} gutter={[8, 8]} className="gx-w-100 gx-text-center gx-border-dark gx-border-2 gx-mt-1 gx-mx-1">
+              <Row justify={"center"} style={{border:"5px solid yellow"}} gutter={[8, 8]} className="gx-w-100 gx-text-center  gx-mt-1 gx-mx-1">
 
                 <Col xs={8}>
                   <div className="gx-py-2 gx-w-100 ">
@@ -717,10 +714,10 @@ class AmarAkbarAnthony extends React.Component {
                         {Amar.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
                       </div>
 
-                      <div xs={12} style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Amar, type: "No", odds: Amar.l1, nat: Amar.nat, betFor: "aaa" }, this.section1Ref)} className="gx-position-relative gx-w-100 gx-mx-1 gx-py-2 ">
+                      {/* <div xs={12} style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Amar, type: "No", odds: Amar.l1, nat: Amar.nat, betFor: "aaa" }, this.section1Ref)} className="gx-position-relative gx-w-100 gx-mx-1 gx-py-2 ">
                         <div className="text-[16px] font-[400] leading-4">{Amar && Amar.l1 && Amar.l1 ? Amar.l1 : "0.00"}</div>
                         {Amar.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
-                      </div>
+                      </div> */}
 
                     </div>
 
@@ -747,10 +744,10 @@ class AmarAkbarAnthony extends React.Component {
                         {Akbar.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
                       </div>
 
-                      <div style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Akbar, type: "No", odds: Akbar.l1, nat: Akbar.nat, betFor: "aaa" }, this.section1Ref)} className="gx-w-100 gx-position-relative gx-mx-1 gx-py-2 ">
+                      {/* <div style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Akbar, type: "No", odds: Akbar.l1, nat: Akbar.nat, betFor: "aaa" }, this.section1Ref)} className="gx-w-100 gx-position-relative gx-mx-1 gx-py-2 ">
                         <div className="text-[16px] font-[400] leading-4">{Akbar && Akbar.l1 && Akbar.l1 ? Akbar.l1 : "0.00"}</div>
                         {Akbar.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
-                      </div>
+                      </div> */}
 
                     </div>
 
@@ -771,10 +768,10 @@ class AmarAkbarAnthony extends React.Component {
                         {Anthony.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
                       </div>
 
-                      <div style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Anthony, type: "No", odds: Anthony.l1, nat: Anthony.nat, betFor: "aaa" }, this.section1Ref)} className="gx-w-100 gx-position-relative gx-mx-1 gx-py-2 ">
+                      {/* <div style={{ backgroundColor: '#FAA9BA' }} onClick={() => this.handleBackOpen({ data: Anthony, type: "No", odds: Anthony.l1, nat: Anthony.nat, betFor: "aaa" }, this.section1Ref)} className="gx-w-100 gx-position-relative gx-mx-1 gx-py-2 ">
                         <div className="text-[16px] font-[400] leading-4">{Anthony && Anthony.l1 && Anthony.l1 ? Anthony.l1 : "0.00"}</div>
                         {Anthony.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
-                      </div>
+                      </div> */}
 
                     </div>
 
@@ -783,10 +780,10 @@ class AmarAkbarAnthony extends React.Component {
                 </Col>
 
               </Row>
+              <div className="gx-border-2 gx-border-dark gx-mx-1"></div>
+              <Row justify={"center"} style={{border:"5px solid yellow"}} gutter={[8, 8]} className="gx-w-100 gx-text-center  gx-mt-1 gx-mx-1">
 
-              <Row justify={"center"} gutter={[8, 8]} className="gx-w-100 gx-text-center gx-border-dark gx-border-2 gx-mt-1 gx-mx-1">
-
-                <Col xs={6}>
+                <Col xs={12}>
                   <div className="gx-py-2 gx-w-100 ">
 
                     <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1" >
@@ -795,7 +792,7 @@ class AmarAkbarAnthony extends React.Component {
 
                     <div className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex " style={{ height: "33px" }}>
 
-                      <div xs={12} className=" gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-grey" onClick={() => this.handleBackOpen({ data: Even, type: "Yes", odds: Even.b1 - oddsDifference, nat: Even.nat, betFor: "aaa" }, this.section1Ref)}>
+                      <div xs={12} className=" gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-cyan" onClick={() => this.handleBackOpen({ data: Even, type: "Yes", odds: Even.b1 - oddsDifference, nat: Even.nat, betFor: "aaa" }, this.section1Ref)}>
                         <div className="">{Even && Even.nat && Even.nat ? Even.nat : "Even"}</div>
                         {Even.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
                       </div>
@@ -810,31 +807,9 @@ class AmarAkbarAnthony extends React.Component {
                   </div>
                 </Col>
 
-                <Col xs={6}>
-                  <div className="gx-py-2 gx-w-100 ">
+               
 
-                    <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1" >
-                      <span>{Odd && Odd.b1 ? Odd.b1 - oddsDifference : "0.00"}</span>
-                    </div>
-
-                    <div className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex " style={{ height: "33px" }}>
-
-                      <div xs={12} className=" gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-grey" onClick={() => this.handleBackOpen({ data: Odd, type: "Yes", odds: Odd.b1 - oddsDifference, nat: Odd.nat, betFor: "aaa" }, this.section1Ref)}>
-                        <div className="">{Odd && Odd.nat && Odd.nat ? Odd.nat : "Odd"}</div>
-                        {Odd.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
-                      </div>
-
-                    </div>
-
-                    <div className={`${posArray[Odd.sid] < 0 ? "gx-text-red" : "gx-text-green-0"}`}>
-                      {posArray[Odd.sid] ?? 0.00}
-                    </div>
-
-
-                  </div>
-                </Col>
-
-                <Col xs={6}>
+                <Col xs={12}>
                   <div className="gx-py-2 gx-w-100">
 
                     <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1" >
@@ -843,7 +818,7 @@ class AmarAkbarAnthony extends React.Component {
 
                     <div className=" gx-fs-md gx-font-weight-semi-bold gx-w-100 gx-bg-flex gx-justify-content-center gx-align-content-center" style={{ height: "33px" }}>
 
-                      <div style={{ color: '#FE0000' }} className="gx-mx-1 gx-w-100 gx-py-2 gx-position-relative gx-bg-grey " onClick={() => this.handleBackOpen({ data: Red, type: "Yes", odds: Red.b1 - oddsDifference, nat: Red.nat, betFor: "color" }, this.section1Ref)}>
+                      <div style={{ color: '#FE0000' }} className="gx-mx-1 gx-w-100 gx-py-2 gx-position-relative gx-bg-cyan " onClick={() => this.handleBackOpen({ data: Red, type: "Yes", odds: Red.b1 - oddsDifference, nat: Red.nat, betFor: "color" }, this.section1Ref)}>
                         <span className="">
                           <AiFillHeart size={16} />
                         </span>
@@ -858,8 +833,31 @@ class AmarAkbarAnthony extends React.Component {
                     <div className={`${posArray[Akbar.sid] < 0 ? "gx-text-red" : "gx-text-green-0"} flex justify-center items-center text-[16px] font-[500]`} > {posArray[Akbar.sid] ?? 0.00}</div>
                   </div>
                 </Col>
+                <Col xs={12}>
+                  <div className="gx-py-2 gx-w-100 ">
 
-                <Col xs={6}>
+                    <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1" >
+                      <span>{Odd && Odd.b1 ? Odd.b1 - oddsDifference : "0.00"}</span>
+                    </div>
+
+                    <div className="gx-fs-md gx-text-white gx-font-weight-semi-bold gx-w-100 gx-bg-flex " style={{ height: "33px" }}>
+
+                      <div xs={12} className=" gx-w-100 gx-mx-1 gx-py-2 gx-position-relative gx-bg-cyan" onClick={() => this.handleBackOpen({ data: Odd, type: "Yes", odds: Odd.b1 - oddsDifference, nat: Odd.nat, betFor: "aaa" }, this.section1Ref)}>
+                        <div className="">{Odd && Odd.nat && Odd.nat ? Odd.nat : "Odd"}</div>
+                        {Odd.gstatus === "ACTIVE" ? null : <BetLockedRoundedBmx />}
+                      </div>
+
+                    </div>
+
+                    <div className={`${posArray[Odd.sid] < 0 ? "gx-text-red" : "gx-text-green-0"}`}>
+                      {posArray[Odd.sid] ?? 0.00}
+                    </div>
+
+
+                  </div>
+                </Col>
+
+                <Col xs={12}>
                   <div className="gx-py-2 gx-w-100">
 
                     <div className="gx-fs-md gx-font-weight-semi-bold gx-py-1" >
@@ -868,7 +866,7 @@ class AmarAkbarAnthony extends React.Component {
 
                     <div className=" gx-fs-md gx-font-weight-semi-bold gx-w-100 gx-bg-flex gx-justify-content-center gx-align-content-center" style={{ height: "33px" }}>
 
-                      <div className="gx-mx-1 gx-w-100  gx-py-2 gx-position-relative gx-bg-grey gx-text-black " onClick={() => this.handleBackOpen({ data: Black, type: "Yes", odds: Black.b1 - oddsDifference, nat: Black.nat, betFor: "color" }, this.section1Ref)}>
+                      <div className="gx-mx-1 gx-w-100  gx-py-2 gx-position-relative gx-bg-cyan gx-text-black " onClick={() => this.handleBackOpen({ data: Black, type: "Yes", odds: Black.b1 - oddsDifference, nat: Black.nat, betFor: "color" }, this.section1Ref)}>
                         <span className="">
                           <BsSuitSpadeFill size={16} />
                         </span>
@@ -884,8 +882,8 @@ class AmarAkbarAnthony extends React.Component {
                 </Col>
 
               </Row>
-
-              <Row justify={"center"} gutter={[8, 8]} className="gx-w-100 gx-text-center gx-border-dark gx-border-2 gx-mt-1 gx-mx-1">
+              <div className="gx-border-2 gx-border-dark gx-mx-1"></div>
+              <Row style={{border:"5px solid yellow"}} justify={"center"} gutter={[8, 8]} className="gx-w-100 gx-text-center  gx-mt-1 gx-mx-1">
                 <Col span={24} className="odds-bet">
                   <Text className="flex justify-center items-center text-black text-16 font-bold">
                     {CardA?.rate ? CardA.rate - oddsDifference : 0}
@@ -935,7 +933,7 @@ class AmarAkbarAnthony extends React.Component {
 
                 </Col>
               </Row>
-
+              <div className="gx-border-2 gx-border-dark gx-mx-1"></div>
               {backBetModal === true ?
                 <PlaceBetMobileBmxBet
                   betSlipData={this.state.betSlipData}
@@ -977,16 +975,16 @@ class AmarAkbarAnthony extends React.Component {
                 </div>
                 : null}
 
-              <Row justify={"center"} className="gx-my-2">
-                {/* <Col span={8}> */}
+              {/* <Row justify={"center"} className="gx-my-2">
+        
                 <Button className="gx-bg-grey gx-text-white gx-font-weight-semi-bold" onClick={() => {
                   this.setState({ decalaredListModal: true });
                   this.declaredbetListfunc();
                 }}>
                   Completed Casino Bets
                 </Button>
-                {/* </Col> */}
-              </Row>
+          
+              </Row> */}
 
               <div style={{ backgroundColor: "rgba(0,0,0,0.3)" }} className="gx-mt-1 gx-mb-3">
                 <RoundedTabBmx />
@@ -1003,7 +1001,7 @@ class AmarAkbarAnthony extends React.Component {
           </Row >
 
         </div >
-      </>
+      </UrbetLayout>
     );
   }
 }

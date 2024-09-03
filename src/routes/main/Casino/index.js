@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Typography } from 'antd';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { liveCasinoList, virtualCasinoList } from './casinoJson'
+import LeftSidebar from '../../../components/LeftSidebar/LeftSidebar';
 // import CommingSoon from '../../components/CommingSoon/CommingSoon';
 
 const { Meta } = Card;
@@ -37,6 +38,23 @@ const Casino = ({ history }) => {
   const sortedVirtualCasinoList = virtualCasinoList.sort((a, b) => a.orderBy - b.orderBy);
   const sortedLiveCasinoList = liveCasinoList.sort((a, b) => a.orderBy - b.orderBy);
   return (
+    <Row>
+    <Col  xs={24}
+    md={4}
+    xl={3}
+    className=" gx-d-none gx-d-md-block gx-px-0 gx-mx-0">
+   
+    <LeftSidebar />
+    </Col>
+    <Col xs={24} md={20} xl={21}>
+    <div  style={{
+        backgroundColor: "white",
+        borderTop: "10px solid black",
+        borderTopLeftRadius: "1rem",
+        borderTopRightRadius: "1rem",
+        height: "100%",
+      }}>
+
     <Card className='gx-bg-transparent'>
       <Typography className='gx-bg-grey gx-text-white gx-mb-3 gx-text-center gx-font-weight-semi-bold gx-fs-lg gx-py-2'>
         Virtual Casino
@@ -96,6 +114,11 @@ const Casino = ({ history }) => {
         ))}
       </Row>
     </Card>
+    </div>
+
+    </Col>
+    </Row>
+
   );
 };
 

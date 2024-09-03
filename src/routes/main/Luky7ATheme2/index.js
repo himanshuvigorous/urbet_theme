@@ -24,6 +24,7 @@ import PlaceBetMobileBmx from "../../../components/casino_components/PlaceBetMob
 import CasinoAlertModal from "../../../components/casino_components/CasinoAlertModal/CasinoAlertModal";
 import DecalaredCasinoBetList from "../../../components/casino_components/DecalaredCasinoBetList/DecalaredCasinoBetList";
 import { getSocket, initSocket } from '../../../components/SocketConnection/SocketConnection';
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
 
 
 const { Text } = Typography;
@@ -640,282 +641,282 @@ class Lucky7Atheme2 extends React.Component {
     // console.log(socket2, "1111111");
 
     return (
-      <>
+     <UrbetLayout>
+       <>
 
-        <div className={`gx-overflow-y-auto`}>
-          {/* {
-              isFatch ?
-                <ErrorTost message={message} toastClose={this.toastClose} error={error} /> : null
-            } */}
-          {
-            alertStatus?.status === true ?
-              <CasinoAlertModal
-                onConfirm={this.handleAlertModal} alertStatus={alertStatus} />
-              : null
+<div className={`gx-overflow-y-auto`}>
+  {/* {
+      isFatch ?
+        <ErrorTost message={message} toastClose={this.toastClose} error={error} /> : null
+    } */}
+  {
+    alertStatus?.status === true ?
+      <CasinoAlertModal
+        onConfirm={this.handleAlertModal} alertStatus={alertStatus} />
+      : null
 
-          }
-          {decalaredListModal && decalaredListModal === true ? (
-            <DecalaredCasinoBetList totalProfitLoss={DeclaredTotalProfitLoss} declaredBetList={declaredBetList} closeDeclaredModal={this.closeDeclaredModal} />
-          ) : null}
-          {ResultModel &&
-            ResultModel === true ? (
-            <ResultModelBmx
-              handleClose={this.handleCloseResult}
-              name={name ? name : "Lucky7-A"}
-              shortName={shortName ? shortName : "lucky7eu"}
-              result={resultData}
-            />
-          ) : null}
-          <Row justify="center">
-            <Col
-              xs={24} // Full width on extra small screens
-              sm={24} // Full width on small screens
-              md={24} // Full width on medium screens
-              lg={10} // Approximately 41% width on large screens
-              xl={10} // Approximately 41% width on extra large screens
-              xxl={10} // Approximately 41% width on double extra large screens
-            >
-              <PageHeaderTheme
-                PageTitle={name ? name : "Lucky7-A"}
-                ruleImage={"/assets/images/rulesImage/lucky7-rules.webp"}
-                t1={t1}
+  }
+  {decalaredListModal && decalaredListModal === true ? (
+    <DecalaredCasinoBetList totalProfitLoss={DeclaredTotalProfitLoss} declaredBetList={declaredBetList} closeDeclaredModal={this.closeDeclaredModal} />
+  ) : null}
+  {ResultModel &&
+    ResultModel === true ? (
+    <ResultModelBmx
+      handleClose={this.handleCloseResult}
+      name={name ? name : "Lucky7-A"}
+      shortName={shortName ? shortName : "lucky7eu"}
+      result={resultData}
+    />
+  ) : null}
+  <Row justify="center">
+    <Col
+      xs={24} // Full width on extra small screens
+     
+    >
+      <PageHeaderTheme
+        PageTitle={name ? name : "Lucky7-A"}
+        ruleImage={"/assets/images/rulesImage/lucky7-rules.webp"}
+        t1={t1}
+      />
+      <Card className="ant-card gx-bg-black gx-text-white p-0 gx-my-0  ant-space-align-center gx-position-relative" >
+        <iframe src={tvUrl ? tvUrl : null} title=" " className="gx-w-100" style={{ height: "350px" }} />
+        <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
+          <Row gutter={[16, 8]} className="gx-pt-2">
+            <Col span={24}>
+              <Text className="gx-text-white" strong>Card</Text>
+            </Col>
+            <Col>
+              <img
+                src={`/cards/${t1 && t1.C1 ? t1.C1 : 1}.png`}
+                alt="card"
+                className=" gx-rounded-sm"
+                style={{ height: '3rem' }}
               />
-              <Card className="ant-card gx-bg-black gx-text-white p-0 gx-my-0  ant-space-align-center gx-position-relative" >
-                <iframe src={tvUrl ? tvUrl : null} title=" " className="gx-w-100" style={{ height: "350px" }} />
-                <div className="gx-w-100 gx-p-3 gx-position-absolute gx-top-0 gx-left-0">
-                  <Row gutter={[16, 8]} className="gx-pt-2">
-                    <Col span={24}>
-                      <Text className="gx-text-white" strong>Card</Text>
-                    </Col>
-                    <Col>
-                      <img
-                        src={`/cards/${t1 && t1.C1 ? t1.C1 : 1}.png`}
-                        alt="card"
-                        className=" gx-rounded-sm"
-                        style={{ height: '3rem' }}
-                      />
-                    </Col>
-                  </Row>
-                </div>
-                <div className=" gx-position-absolute" style={{ bottom: '16px', right: '16px' }}>
-                  <FlipCountdown
-                    titlePosition="hidden"
-                    hideYear
-                    hideMonth
-                    hideDay
-                    hideHour
-                    hideMinute
-                    endAtZero
-                    size="small"
-                    endAt={new Date(Date.now() + 1000 * (t1?.autotime || 0)).toUTCString()}
-                  />
-                </div>
-              </Card>
-
-              <div className="gx-mt-1 gx-mx-1 gx-border-2 gx-border-dark">
-                <div className="gx-w-100">
-                  <Row gutter={[4, 4]} className="gx-w-100 ant-space-align-center gx-pl-1">
-                    <Col xs={10} md={10} className="gx-w-100">
-                      <GameCard
-                        handleBackOpen={this.handleBackOpen}
-                        Data={LOWCard}
-                        Name={LOWCard.nat ? LOWCard.nat : LOWCard.nation ? LOWCard.nation : "LOWCard"}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                    <Col xs={4} md={4} className="gx-bg-flex gx-justify-content-center ant-space-align-center gx-w-full">
-                      <div className="gx-d-flex gx-justify-content-center ant-space-align-center">
-                        <img src="/assets/images/casino-images/7.jpg" alt="aaaaaa" style={{ height: "54px", width: "50px" }} />
-                      </div>
-                    </Col>
-                    <Col xs={10} md={10} className="gx-w-100">
-                      <GameCard
-                        handleBackOpen={this.handleBackOpen}
-                        Data={HIGHCard}
-                        Name={HIGHCard.nat ? HIGHCard.nat : HIGHCard.nation ? HIGHCard.nation : "HIGHCard"}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                  </Row>
-                </div>
-              </div>
-
-
-              <Row gutter={[16, 16]} className="gx-mt-1 gx-mx-1 gx-border-2 gx-border-dark">
-                <Col xs={24} md={12} className="">
-                  <Row gutter={[8, 8]}>
-                    <Col span={12}>
-                      <GameCard
-                        handleBackOpen={this.handleBackOpen}
-                        Data={Even}
-                        Name={Even.nat ? Even.nat ? Even.nation : Even.nation : "Even"}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                    <Col span={12}>
-                      <GameCard
-                        handleBackOpen={this.handleBackOpen}
-                        Data={Odd}
-                        Name={Odd.nat ? Odd.nat : Odd.nation ? Odd.nation : "Odd"}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={24} md={12} className="">
-                  <Row gutter={[8, 8]}>
-                    <Col span={12}>
-                      <GameCard2
-                        handleBackOpen={this.handleBackOpen}
-                        Data={Red}
-                        select={"Red"}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                    <Col span={12}>
-                      <GameCard2
-                        handleBackOpen={this.handleBackOpen}
-                        Data={Black}
-                        section1Ref={this.section1Ref}
-                        posArray={posArray}
-                        oddsDifference={oddsDifference}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-              </Row>
-
-
-              <Row gutter={[16, 16]} className="gx-mt-1 gx-mx-1 gx-border-2 gx-border-dark">
-                <Col span={24} className="">
-                  <Text className="gx-d-flex gx-justify-content-center ant-space-align-center gx-py-2 gx-text-black gx-fs-lg gx-font-weight-bold">
-                    {CardA?.rate ? (parseFloat(CardA.rate - oddsDifference)).toFixed(2).replace(/\.?0+$/, "") : 0}
-                  </Text>
-                  <Row gutter={[8, 8]} className="w-full text-center">
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={CardA} num={"1"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card2} num={"2"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card3} num={"3"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card4} num={"4"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card5} num={"5"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card6} num={"6"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card7} num={"7"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card8} num={"8"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card9} num={"9"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={Card10} num={"10"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={CardJ} num={"11"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={CardQ} num={"12"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-                    <Col xs={6} sm={6} md={4} lg={4} xl={2}>
-                      <CardCasino handleBackOpen={this.handleBackOpen} Data={CardK} num={"13"} section1Ref={this.section1Ref} posArray={posArray} />
-                    </Col>
-
-                  </Row>
-
-                </Col>
-              </Row>
-
-              {backBetModal === true ?
-                <PlaceBetMobileBmxBet
-                  betSlipData={this.state.betSlipData}
-                  time={time}
-                  count={count}
-                  betChipsData={betChipsData}
-                  section1Ref={this.section1Ref}
-                  inputRef={this.inputRef}
-                  updateStake={this.updateStake}
-                  placeBet={this.placeBet}
-                  updateStackOnclick={this.updateStackOnclick}
-                  handleClose={this.handleClose}
-                  LoadingBet={LoadingBet}
-                />
-                : null}
-
-
-              {backBetModal === true ?
-                <PlaceBetMobileBmx
-                  betSlipData={this.state.betSlipData}
-                  time={time}
-                  count={count}
-                  betChipsData={betChipsData}
-                  section1Ref={this.section1Ref}
-                  inputRef={this.inputRef}
-                  updateStake={this.updateStake}
-                  placeBet={this.placeBet}
-                  updateStackOnclick={this.updateStackOnclick}
-                  handleClose={this.handleClose}
-                  LoadingBet={LoadingBet}
-                />
-                : null}
-
-
-              {betList && betList.length > 0 ?
-                <div className="gx-w-100 gx-mt-1">
-                  {/* <MyBetTabBmx
-                      totalProfitLoss={totalProfitLoss} /> */}
-                  <BetListTableBmx betList={betList} />
-                </div>
-                : null}
-              <Row justify={"center"} className="gx-my-1">
-                <Button className="gx-bg-grey gx-text-white gx-font-weight-semi-bold" onClick={() => {
-                  this.setState({ decalaredListModal: true });
-                  this.declaredbetListfunc();
-                }}>
-                  Completed Casino Bets
-                </Button>
-              </Row>
-              <div style={{ backgroundColor: "rgba(0,0,0,0.3)" }} className="gx-my-1 gx-mx-1 ">
-                <RoundedTabBmx />
-                <div className="gx-bg-flex gx-justify-content-end gx-align-items-center gx-py-2 gx-px-2">
-                  {casinoData && casinoData.result && casinoData?.result ? casinoData?.result?.map((element, index) => (
-                    <div onClick={() => this.handleResultModel(element)} style={{ backgroundColor: '#368011', width: '24px', height: '24px' }} className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold" >
-                      <p className="text-[#FFFF2E] font-normal text-sm">{element && element.result && element.result === "0" ? "T" : element && element.result && element.result === "1" ? "L" : element && element.result && element.result === "2" ? "H" : "-"}</p>
-                    </div>
-                  )) : null}
-                </div>
-              </div>
             </Col>
           </Row>
-
-          {/* <Col span={8}> */}
-
-          {/* </Col> */}
-
         </div>
+        <div className=" gx-position-absolute" style={{ bottom: '16px', right: '16px' }}>
+          <FlipCountdown
+            titlePosition="hidden"
+            hideYear
+            hideMonth
+            hideDay
+            hideHour
+            hideMinute
+            endAtZero
+            size="small"
+            endAt={new Date(Date.now() + 1000 * (t1?.autotime || 0)).toUTCString()}
+          />
+        </div>
+      </Card>
 
-      </>
+      <div style={{border:"5px solid yellow"}} className="gx-mt-1 gx-mx-1  ">
+        <div className="gx-w-100">
+          <Row gutter={[4, 4]} className="gx-w-100 ant-space-align-center gx-pl-1">
+            <Col xs={10} md={10} className="gx-w-100 ">
+              <GameCard
+                handleBackOpen={this.handleBackOpen}
+                Data={LOWCard}
+                Name={LOWCard.nat ? LOWCard.nat : LOWCard.nation ? LOWCard.nation : "LOWCard"}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+            <Col xs={4} md={4} className="gx-bg-flex gx-justify-content-center ant-space-align-center gx-w-full">
+              <div className="gx-d-flex gx-justify-content-center ant-space-align-center">
+                <img src="/assets/images/casino-images/7.jpg" alt="aaaaaa" style={{ height: "54px", width: "50px" }} />
+              </div>
+            </Col>
+            <Col xs={10} md={10} className="gx-w-100">
+              <GameCard
+                handleBackOpen={this.handleBackOpen}
+                Data={HIGHCard}
+                Name={HIGHCard.nat ? HIGHCard.nat : HIGHCard.nation ? HIGHCard.nation : "HIGHCard"}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+          </Row>
+        </div>
+      </div>
+      <div className="gx-border-2 gx-border-dark"></div>
+
+
+      <Row gutter={[16, 16]}  style={{border:"5px solid yellow"}} className="gx-mt-1 gx-mx-1">
+        <Col xs={24} md={12} className="">
+          <Row gutter={[8, 8]}>
+            <Col span={12}>
+              <GameCard
+                handleBackOpen={this.handleBackOpen}
+                Data={Even}
+                Name={Even.nat ? Even.nat ? Even.nation : Even.nation : "Even"}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+            <Col span={12}>
+              <GameCard
+                handleBackOpen={this.handleBackOpen}
+                Data={Odd}
+                Name={Odd.nat ? Odd.nat : Odd.nation ? Odd.nation : "Odd"}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+          </Row>
+        </Col>
+        <Col xs={24} md={12} className="">
+          <Row gutter={[8, 8]}>
+            <Col span={12}>
+              <GameCard2
+                handleBackOpen={this.handleBackOpen}
+                Data={Red}
+                select={"Red"}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+            <Col span={12}>
+              <GameCard2
+                handleBackOpen={this.handleBackOpen}
+                Data={Black}
+                section1Ref={this.section1Ref}
+                posArray={posArray}
+                oddsDifference={oddsDifference}
+              />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <div className="gx-border-2 gx-border-dark"></div>
+
+      <Row gutter={[16, 16]}  style={{border:"5px solid yellow"}} className="gx-mt-1 gx-mx-1 ">
+        <Col span={24} className="">
+          <Text className="gx-d-flex gx-justify-content-center ant-space-align-center gx-py-2 gx-text-black gx-fs-lg gx-font-weight-bold">
+            {CardA?.rate ? (parseFloat(CardA.rate - oddsDifference)).toFixed(2).replace(/\.?0+$/, "") : 0}
+          </Text>
+          <Row gutter={[8, 8]} className="w-full text-center">
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={CardA} num={"1"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card2} num={"2"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card3} num={"3"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card4} num={"4"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card5} num={"5"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card6} num={"6"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card7} num={"7"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card8} num={"8"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card9} num={"9"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={Card10} num={"10"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={CardJ} num={"11"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={CardQ} num={"12"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+            <Col xs={6} sm={6} md={4} lg={4} xl={2}>
+              <CardCasino handleBackOpen={this.handleBackOpen} Data={CardK} num={"13"} section1Ref={this.section1Ref} posArray={posArray} />
+            </Col>
+
+          </Row>
+
+        </Col>
+      </Row>
+
+      {backBetModal === true ?
+        <PlaceBetMobileBmxBet
+          betSlipData={this.state.betSlipData}
+          time={time}
+          count={count}
+          betChipsData={betChipsData}
+          section1Ref={this.section1Ref}
+          inputRef={this.inputRef}
+          updateStake={this.updateStake}
+          placeBet={this.placeBet}
+          updateStackOnclick={this.updateStackOnclick}
+          handleClose={this.handleClose}
+          LoadingBet={LoadingBet}
+        />
+        : null}
+
+
+      {backBetModal === true ?
+        <PlaceBetMobileBmx
+          betSlipData={this.state.betSlipData}
+          time={time}
+          count={count}
+          betChipsData={betChipsData}
+          section1Ref={this.section1Ref}
+          inputRef={this.inputRef}
+          updateStake={this.updateStake}
+          placeBet={this.placeBet}
+          updateStackOnclick={this.updateStackOnclick}
+          handleClose={this.handleClose}
+          LoadingBet={LoadingBet}
+        />
+        : null}
+
+
+      {betList && betList.length > 0 ?
+        <div className="gx-w-100 gx-mt-1">
+          {/* <MyBetTabBmx
+              totalProfitLoss={totalProfitLoss} /> */}
+          <BetListTableBmx betList={betList} />
+        </div>
+        : null}
+      {/* <Row justify={"center"} className="gx-my-1">
+        <Button className="gx-bg-grey gx-text-white gx-font-weight-semi-bold" onClick={() => {
+          this.setState({ decalaredListModal: true });
+          this.declaredbetListfunc();
+        }}>
+          Completed Casino Bets
+        </Button>
+      </Row> */}
+      <div className="gx-border-2 gx-border-dark"></div>
+      <div style={{ backgroundColor: "rgba(0,0,0,0.3)" }} className="gx-my-1  gx-mx-1 ">
+        <RoundedTabBmx />
+        <div className="gx-bg-flex gx-justify-content-end gx-align-items-center gx-py-2 gx-px-2">
+          {casinoData && casinoData.result && casinoData?.result ? casinoData?.result?.map((element, index) => (
+            <div onClick={() => this.handleResultModel(element)} style={{ backgroundColor: '#368011', width: '24px', height: '24px' }} className="gx-rounded-circle gx-p-1 gx-ml-1 cursor-pointer gx-fs-md gx-bg-flex gx-justify-content-center gx-align-content-center gx-text-white gx-font-weight-semi-bold" >
+              <p className="text-[#FFFF2E] font-normal text-sm">{element && element.result && element.result === "0" ? "T" : element && element.result && element.result === "1" ? "L" : element && element.result && element.result === "2" ? "H" : "-"}</p>
+            </div>
+          )) : null}
+        </div>
+      </div>
+    </Col>
+  </Row>
+
+  {/* <Col span={8}> */}
+
+  {/* </Col> */}
+
+</div>
+
+</>
+     </UrbetLayout>
     );
   }
 }

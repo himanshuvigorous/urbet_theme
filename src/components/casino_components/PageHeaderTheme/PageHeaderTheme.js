@@ -13,13 +13,13 @@ export default function PageHeaderTheme(props) {
     };
 
     return (
-        <div className='w-full gx-mx-2'>
+        <div className='w-full gx-mx-2 '>
             {rulesModal ?
 
                 <RulesModelBmx ruleImage={ruleImage} PageTitle={PageTitle} setRulesModal={handleOpenRules} />
                 : null}
-            <div className="gx-bg-grey">
-                <Row gutter={[20, 20]} justify="space-between" align="middle" className=" gx-fs-sm gx-font-weight-bold gx-bg-grey gx-py-1">
+            <div  className="">
+                <Row style={{borderTopLeftRadius:'5px',borderTopRightRadius:"5px"}} gutter={[20, 20]} justify="space-between" align="middle" className=" gx-fs-md gx-font-weight-bold gx-bg-grey gx-py-3 ">
                     <Col>
                         <div level={5} className="gx-text-white gx- gx-uppercase" >
                             {PageTitle} 

@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Select } from 'antd';
-import { getMatchList } from '../../appRedux/actions/User';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Select } from "antd";
+import { getMatchList } from "../../appRedux/actions/User";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { AiFillCaretDown } from "react-icons/ai";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import styles from  "./LeftSidebar.module.css"
 
 const { Option } = Select;
 
 const parseMatchDate = (dateString) => {
-  const [datePart, timePart] = dateString.split(' ');
-  const [day, month, year] = datePart.split('-');
-  const [hours, minutes] = timePart.split(':');
-  const isPM = timePart.includes('PM');
+  const [datePart, timePart] = dateString.split(" ");
+  const [day, month, year] = datePart.split("-");
+  const [hours, minutes] = timePart.split(":");
+  const isPM = timePart.includes("PM");
 
   let hour = parseInt(hours, 10);
   if (isPM && hour !== 12) hour += 12;
@@ -32,71 +33,95 @@ function LeftSidebar({ matchListData }) {
   const [clickedOutside, setClickedOutside] = useState(false);
 
   const history = useHistory();
-  let adminMatchList = JSON.parse(localStorage.getItem('matchList'));
+  let adminMatchList = JSON.parse(localStorage.getItem("matchList"));
 
   useEffect(() => {
     let matchListData = adminMatchList ? adminMatchList : matchList;
 
-    const filteredAndSortedData = matchListData?.map((item, index) => ({
-      key: item._id,
-      sn: index + 1,
-      name: item.matchName,
-      matchDate: item.matchDate,
-      seriesName: item.seriesName,
-      inplay: item.status,
-      matchName: item.matchName,
-      marketId: item.marketId,
-      eventId: item.eventId,
-      cacheUrl: item.cacheUrl,
-    })).sort((a, b) => parseMatchDate(a.matchDate) - parseMatchDate(b.matchDate));
+    const filteredAndSortedData = matchListData
+      ?.map((item, index) => ({
+        key: item._id,
+        sn: index + 1,
+        name: item.matchName,
+        matchDate: item.matchDate,
+        seriesName: item.seriesName,
+        inplay: item.status,
+        matchName: item.matchName,
+        marketId: item.marketId,
+        eventId: item.eventId,
+        cacheUrl: item.cacheUrl,
+      }))
+      .sort(
+        (a, b) => parseMatchDate(a.matchDate) - parseMatchDate(b.matchDate)
+      );
 
     setMatchData(filteredAndSortedData);
   }, [matchList]);
 
   const handleChange = (value) => {
-    const selectedMatch = matchData.find(match => match.key === value);
+    const selectedMatch = matchData.find((match) => match.key === value);
     if (selectedMatch) {
-      history.push(`/main/match-deatils/${selectedMatch.marketId}/${selectedMatch.eventId}`);
+      history.push(
+        `/main/match-deatils/${selectedMatch.marketId}/${selectedMatch.eventId}`
+      );
     }
   };
 
   return (
-    <div
-    style={{
-  backgroundColor:"white",
-      borderTop:"10px solid black",
-      borderTopLeftRadius: "1rem", 
-      borderTopRightRadius: "1rem", 
-    }}
-  >
-    <div  onClick={() => {
-     
-                  setClickedOutside(!clickedOutside);
-                }}>
-    <div className="flex items-center justify-between space-x-2 py-1 px-3 rounded cursor-pointer">
-                  <span className="flex items-center">
-                    <img src="/images/cricket.png" className="w-4 h-4" alt="" />
-                    <span className="select-none text-base pl-1">Cricket</span>
-                    <AiFillCaretDown size={12} />
-                  </span>
-                  <span className="border bg-black">
-                    {clickedOutside ? (
-                      <FiChevronUp size={16} className="text-white" />
-                    ) : (
-                      <FiChevronDown size={16} className="text-white" />
-                    )}
-                  </span>
-                </div>
-    </div>
+    <div style={{background:"white"}} className={`${styles.container} `}>
+      <div className={styles.content}>
+        <div className={styles.text}>
+          <div
+            onClick={() => {
+              // handleClickInside();
+              setClickedOutside(!clickedOutside);
+              // Add this log to check the state change
+              console.log("Dropdown state:", !clickedOutside);
+            }}
+            className={styles["menu-trigger"]}
+          >
+            <span>
+              <img src="/images/cricket.png" alt="" />
+              <span className={styles["menu-trigger-text"]}>Cricket</span>
+              <AiFillCaretDown size={12} />
+            </span>
+            <span className={styles["menu-icon"]}>
+              {clickedOutside ? (
+                <FiChevronUp size={16} className="text-white" />
+              ) : (
+                <FiChevronDown size={16} className="text-white" />
+              )}
+            </span>
+          </div>
 
-    <div>
-    {matchData && matchData.length > 0 ? matchData.map((element) => (
-        <div className='gx-py-1 gx-fs-sm'  onClick={() => history.push( `/main/match-deatils/${element.marketId}/${ element.eventId }`)} key={element.key} value={element.key}>
-          {element.matchName ? element.matchName : "--"}
+          <div
+            className={`${styles["dropdown-menu"]} ${
+              clickedOutside ? styles["dropdown-menu-open"] : ""
+            } ${styles["dropdown-menu-lg"]}`}
+          >
+            <div className={styles.divider}>
+              {matchData && matchData.length > 0
+                ? matchData.map((element, index) => (
+                    <div
+                      key={index}
+                      onClick={() =>
+                        history.push(
+                          `/main/match-deatils/${element.marketId}/${element.eventId}`
+                        )
+                      }
+                      className={styles["menu-item"]}
+                    >
+                      {element && element.matchName
+                        ? element.matchName
+                        : "--"}
+                    </div>
+                  ))
+                : <div className={styles["menu-item"]}>No matches found</div>}
+            </div>
+          </div>
         </div>
-      )) : null}
+      </div>
     </div>
-   </div>
   );
 }
 

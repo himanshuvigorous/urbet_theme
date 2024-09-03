@@ -20,6 +20,7 @@ import { betChipsData } from '../../../http/http';
 import { Row, Col, Typography, Image, Card, Divider, Button } from 'antd';
 import CasinoAlertModal from "../../../components/casino_components/CasinoAlertModal/CasinoAlertModal";
 import DecalaredCasinoBetList from "../../../components/casino_components/DecalaredCasinoBetList/DecalaredCasinoBetList";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
 
 class DragonTiger202Theme2 extends React.Component {
   constructor(props) {
@@ -560,7 +561,7 @@ class DragonTiger202Theme2 extends React.Component {
     let Tiger = data && data.t2 && data.t2[2] ? data.t2[1] : {};
     let Tie = data && data.t2 && data.t2[2] ? data.t2[2] : {};
     return (
-      <>
+      <UrbetLayout>
 
         <div className={`gx-overflow-y-auto`}>
           {/* {
@@ -589,11 +590,7 @@ class DragonTiger202Theme2 extends React.Component {
           <Row justify="center">
             <Col
               xs={24}
-              sm={24}
-              md={24}
-              lg={10}
-              xl={10}
-              xxl={10}
+             
             >
               <PageHeaderTheme
                 PageTitle={name ? name : "20-20 Dragon Tiger"}
@@ -636,7 +633,7 @@ class DragonTiger202Theme2 extends React.Component {
                 </div>
               </Card>
 
-              <div className="gx-w-100 gx-px-1 gx-pb-1 gx-pt-1 gx-border-2 gx-border-dark">
+              <div style={{border:"5px solid yellow"}} className="gx-w-100 gx-px-1 gx-pb-1 gx-pt-1">
                 <div className="gx-d-flex gx-align-items-center gx-justify-content-between gx-px-2 gx-bg-white gx-py-1" style={{ gap: 4 }}>
                   <GameCard
                     handleBackOpen={this.handleBackOpen}
@@ -705,16 +702,16 @@ class DragonTiger202Theme2 extends React.Component {
                   <BetListTableBmx betList={betList} />
                 </div>
                 : null}
-              <Row justify={"center"} className="gx-my-2">
-                {/* <Col span={8}> */}
+              {/* <Row justify={"center"} className="gx-my-2">
+                
                 <Button className="gx-bg-grey gx-text-white gx-font-weight-semi-bold" onClick={() => {
                   this.setState({ decalaredListModal: true });
                   this.declaredbetListfunc();
                 }}>
                   Completed Casino Bets
                 </Button>
-                {/* </Col> */}
-              </Row>
+               
+              </Row> */}
 
               <div style={{ backgroundColor: "rgba(0,0,0,0.3)" }} className="gx-w-100 gx-mt-1">
                 <RoundedTabBmx />
@@ -732,7 +729,7 @@ class DragonTiger202Theme2 extends React.Component {
 
         </div>
 
-      </>
+      </UrbetLayout>
     );
   }
 }

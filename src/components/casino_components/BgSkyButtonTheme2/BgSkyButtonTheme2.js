@@ -8,7 +8,7 @@ export default function BgSkyButtonTheme2(props) {
 
     return (
         <div onClick={() => handleBackOpen(data, section1Ref)}
-            className="gx-w-100 gx-h-100 gx-py-2 gx-text-white gx-items-center gx-text-center gx-fs-md gx-px-4 gx-font-weight-semi-bold gx-text-uppercase gx-bg-grey gx-pointer"
+            className="gx-w-100 gx-h-100 gx-py-2 gx-text-white gx-items-center gx-text-center gx-fs-lg gx-px-4 gx-font-weight-semi-bold gx-text-uppercase gx-bg-cyan gx-pointer"
         >
             {ele}
         </div>

@@ -7,6 +7,8 @@ import moment from "moment";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import BackMenuButton from "../../../components/BackMenu";
 import Loader from "../../../components/loader";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
+import LeftSidebar from "../../../components/LeftSidebar/LeftSidebar";
 
 const Ledger = () => {
   const [userLadger, setLadger] = useState([]);
@@ -53,110 +55,169 @@ const Ledger = () => {
     dispatch(userLedgerList(reqData));
   };
 
+
+  const columns = [
+    {
+      title: "S. NO.",
+   
+      align: "start",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      className: " gx-text-nowrap",
+      render: (value, row,index) => <span>{index+1}</span>,
+    },
+    {
+      title: "DESCRIPTION",
+      dataIndex: "remark",
+      align: "start",
+      className: " gx-text-nowrap",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      render: (value, row) => {
+        if (row.ledgerType === "diamondCasino" || row.ledgerType === "internationalCasino") {
+          return (
+            <Link to={`/main/ledger-casino-details/${row?.marketId}/${row?.ledgerType}/${row?.date}`}>
+              <span className="gx-text-link">
+                {row.remark} ({moment(row.createdAt).format('DD-MMM-YYYY')})
+              </span>
+            </Link>
+          );
+        } else {
+          return (
+            <Link to={`/main/ledger-details/${row?.marketId}`}>
+              <span className="gx-text-link">
+                {row.remark} ({moment(row.createdAt).format('DD-MMM-YYYY')})
+              </span>
+            </Link>
+          );
+        }
+      },
+    },
+    {
+      title: "WON BY",
+      dataIndex: "remark",
+      align: "start",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      className: " gx-text-nowrap",
+      render: (value, row) => <span>{row.remark}</span>,
+    },
+    {
+      title: "DEBIT",
+      dataIndex: "debit",
+      align: "start",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      className: " gx-text-nowrap",
+      render: (value) => (
+        <span className="gx-text-green-0">
+          {value > 0 ? Number.parseFloat(Math.abs(value)).toFixed(2).replace(/\.?0+$/, '') : 0}
+        </span>
+      ),
+    },
+    {
+      title: "CREDIT",
+      dataIndex: "credit",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      align: "start",
+      className: " gx-text-nowrap",
+      render: (value) => (
+        <span className="gx-text-red">
+          {value < 0 ? Number.parseFloat(Math.abs(value)).toFixed(2).replace(/\.?0+$/, '') : 0}
+        </span>
+      ),
+    },
+    {
+      title: "HISAB",
+      dataIndex: "balance",
+      align: "start",
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      className: " gx-text-nowrap",
+      render: (value, row) => (
+        <span className={`${row.balance > 0 ? 'gx-text-green-0' : 'gx-text-red'}`}>
+          {row.balance ? Number.parseFloat(Math.abs(row.balance)).toFixed(2).replace(/\.?0+$/, '') : 0}
+        </span>
+      ),
+    },
+  ];
+
   return (
     <>
       {loading ? <Loader props={loading} /> :
-        <Auxiliary>
+      <Row>
+        <Col  xs={24}
+        md={4}
+        xl={3}
+        className=" gx-d-none gx-d-md-block gx-px-0 gx-mx-0">
+       
+        <LeftSidebar />
+        </Col>
+        <Col xs={24} md={20} xl={21}>
+        
+        <>
+         <div  style={{
+        backgroundColor: "white",
+        borderTop: "10px solid black",
+        borderTopLeftRadius: "1rem",
+        borderTopRightRadius: "1rem",
+        height: "100%",
+      }}>
 
-          <Row justify={"center"}>
-            <Col xl={14} lg={14} md={22} sm={24} xs={24}>
-              <div className="gx-py-1 gx-bg-grey ">
-                <div className="gx-bg-flex gx-justify-content-center gx-text-white gx-font-weight-semi-bold">
-                  MY LEDGER
-                </div>
-              </div>
-              <Row justify={"center"} className="gx-py-3  gx-fs-sm gx-font-weight-semi-bold gx-text-light-gray"  >
-                <Col  className="gx-bg-flex gx-py-md-1 gx-py-1 gx-justify-content-center " xs={10} sm={8}>
-                  <span className="gx-font-weight-semi-bold gx-fs-lg gx-px-2"> Lena:</span>
-                  <span className="gx-fs-lg gx-font-weight-semi-bold   gx-text-red">
-                    {Number.parseFloat(Math.abs(debitAmount ? debitAmount : 0)).toFixed(2)}
-                  </span>
-                </Col>
-                <Col  className="gx-py-md-1 gx-py-1" xs={10} sm={8}>
-                  <span className="gx-font-weight-semi-bold gx-fs-lg gx-px-2"> Dena:</span>
+<Row justify={"start"}>
+  <Col xs={24}>
+    <div className="gx-py-1">
+      <div className=" gx-px-2 gx-text-black gx-font-weight-semi-bold">
+        MY LEDGER
+      </div>
+    </div>
 
-                  <span className="gx-fs-lg gx-font-weight-semi-bold  gx-text-black">
-                    {Number.parseFloat(Math.abs(creditAmount ? creditAmount : 0)).toFixed(2)}
-                  </span>
-                </Col>
-                <Col className="gx-py-md-1 gx-py-1" xs={8} sm={8}>
-                  <span className="gx-font-weight-semi-bold gx-fs-lg gx-px-2 " > Balance:</span>
+    <Table
+  className="gx-table-responsive"
+  dataSource={userLadger}
+  columns={columns}
+  size="small"
+  bordered
+  pagination={false}
+/>;
+  </Col>
+</Row>
 
-                  <span className={`gx-fs-lg gx-font-weight-semi-bold  ${calAmount < 0 ? "gx-text-red" : "gx-text-green-0"}`}>
-                    {Number.parseFloat(Math.abs(calAmount ? calAmount : 0)).toFixed(2)}
-                  </span>
-                </Col>
-              </Row>
-     
-              <Table className="gx-table-responsive" dataSource={userLadger} bordered pagination={false}>
-                <Table.Column
-                  className="llllll gx-text-nowrap"
-                  title="DESCRIPTION"
-                  dataIndex="remark"
-                  align="center"
-                  render={(value, row) => {
-                    if (row.ledgerType === "diamondCasino" || row.ledgerType === "internationalCasino") {
-         
-                      return (
-                        <Link to={`/main/ledger-casino-details/${row?.marketId}/${row?.ledgerType}/${row?.date}`}>
-                         
-                          <span className="gx-text-link">{row.remark} ({moment(row.createdAt).format('DD-MMM-YYYY')})</span>
-                        </Link>
-                      );
-                    } else {
-                      return (
-                        <Link to={`/main/ledger-details/${row?.marketId}`}>
-                          <span className="gx-text-link">{row.remark} ({moment(row.createdAt).format('DD-MMM-YYYY')})</span>
-                        </Link>
-                      );
-                    }
-                  }}
-                />
-
-                <Table.Column
-                  className="llllll gx-text-nowrap"
-                  title="WON BY"
-                  align="center"
-                  dataIndex="remark"
-                  render={(value, row) => <span className="">{row.remark}</span>}
-                />
-                <Table.Column
-                  title="DEBIT"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="debit"
-                  align="center"
-                  render={(value) => (
-                    <span className="gx-text-green-0">{value > 0 ? Number.parseFloat(Math.abs(value)).toFixed(2).replace(/\.?0+$/, '') : 0}</span>
-                  )}
-                />
-                <Table.Column
-                  title="CREDIT"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="credit"
-                  align="center"
-                  render={(value) => (
-                    <span className="gx-text-red">{value < 0 ? Number.parseFloat(Math.abs(value)).toFixed(2).replace(/\.?0+$/, '') : 0}</span>
-                  )}
-                />
-                <Table.Column
-                  title="HISAB"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="balance"
-                  align="center"
-                  render={(value, row) => (
-                    <span className={`${row.balance > 0 ? 'gx-text-green-0' : 'gx-text-red'}`}>
-                      {row.balance ? Number.parseFloat(Math.abs(row.balance)).toFixed(2).replace(/\.?0+$/, '') : 0}
-                    </span>
-                  )}
-                />
-              </Table>
-            </Col>
-          </Row>
-          <div className="gx-py-4">
-
-            <BackMenuButton />
-          </div>
-        </Auxiliary>
+</div>
+       </>
+       </Col>
+      </Row>
       }
     </>
   );

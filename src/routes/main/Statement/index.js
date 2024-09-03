@@ -91,7 +91,7 @@
 // //           </div>
 // //           <Table className="gx-table-responsive" dataSource={statementList} pagination={false} bordered rowKey="createdAt">
 // //             <Table.Column
-// //             className="llllll"
+// //             className=""
 // //               title="Date"
 // //               dataIndex="createdAt"
 // //               key="createdAt"
@@ -99,28 +99,28 @@
 // //             />
 // //             <Table.Column
 // //               title="Description"
-// //             className="llllll"
+// //             className=""
 // //               dataIndex="remark"
 // //               key="remark"
 // //               render={text => <div className="truncate">{text}</div>}
 // //             />
 // //             <Table.Column
 // //               title="CREDIT"
-// //             className="llllll"
+// //             className=""
 // //               dataIndex="amount"
 // //               key="credit"
 // //               render={(text) => text > 0 ? <div className="text-[#52B5E1]">{Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}</div> : 0}
 // //             />
 // //             <Table.Column
 // //               title="DEBIT"
-// //             className="llllll"
+// //             className=""
 // //               dataIndex="amount"
 // //               key="debit"
 // //               render={(text) => text < 0 ? <div className="red-text">{Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}</div> : 0}
 // //             />
 // //             <Table.Column
 // //               title="Balance"
-// //             className="llllll"
+// //             className=""
 // //               dataIndex="balance"
 // //               key="balance"
 // //               render={text => Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}
@@ -325,30 +325,30 @@
 //                     className="gx-bg-flex gx-w-100 gx-py- gx-my-0 gx-align-items-center gx-justify-content-center  "
 
 //                   >
-//                     <Radio.Button
+//                     <Radio
 //                       className={`${activeTab === 1 ? "gx-bg-dark" : "gx-bg-primary"
 //                         } gx-text-white gx-py- gx-my-0`}
 //                       onClick={() => handleTabClick(1)}
 //                       value="1"
 //                     >
 //                       All
-//                     </Radio.Button>
-//                     <Radio.Button
+//                     </Radio>
+//                     <Radio
 //                       className={`${activeTab === 2 ? "gx-bg-dark" : "gx-bg-primary"
 //                         } gx-text-white gx-py- gx-my-0`}
 //                       onClick={() => handleTabClick(2)}
 //                       value="2"
 //                     >
 //                       P&L
-//                     </Radio.Button>
-//                     <Radio.Button
+//                     </Radio>
+//                     <Radio
 //                       className={`${activeTab === 3 ? "gx-bg-dark" : "gx-bg-primary"
 //                         } gx-text-white gx-py- gx-my-0`}
 //                       onClick={() => handleTabClick(3)}
 //                       value="3"
 //                     >
 //                       Account
-//                     </Radio.Button>
+//                     </Radio>
 //                   </Radio.Group>
 
 //                 </Col>
@@ -362,7 +362,7 @@
 //                 rowKey="createdAt"
 //               >
 //                 <Table.Column
-//                   className="llllll"
+//                   className=""
 //                   title="Date"
 //                   dataIndex="createdAt"
 //                   key="createdAt"
@@ -372,14 +372,14 @@
 //                 />
 //                 <Table.Column
 //                   title="Description"
-//                   className="llllll"
+//                   className=""
 //                   dataIndex="remark"
 //                   key="remark"
 //                   render={(text) => <div className="truncate">{text}</div>}
 //                 />
 //                 <Table.Column
 //                   title="CREDIT"
-//                   className="llllll"
+//                   className=""
 //                   dataIndex="amount"
 //                   key="credit"
 //                   render={(text) =>
@@ -396,7 +396,7 @@
 //                 />
 //                 <Table.Column
 //                   title="DEBIT"
-//                   className="llllll"
+//                   className=""
 //                   dataIndex="amount"
 //                   key="debit"
 //                   render={(text) =>
@@ -413,7 +413,7 @@
 //                 />
 //                 <Table.Column
 //                   title="Balance"
-//                   className="llllll"
+//                   className=""
 //                   dataIndex="balance"
 //                   key="balance"
 //                   render={(text) =>
@@ -552,7 +552,7 @@
 //           </div>
 //           <Table className="gx-table-responsive" dataSource={statementList} pagination={false} bordered rowKey="createdAt">
 //             <Table.Column
-//             className="llllll"
+//             className=""
 //               title="Date"
 //               dataIndex="createdAt"
 //               key="createdAt"
@@ -560,28 +560,28 @@
 //             />
 //             <Table.Column
 //               title="Description"
-//             className="llllll"
+//             className=""
 //               dataIndex="remark"
 //               key="remark"
 //               render={text => <div className="truncate">{text}</div>}
 //             />
 //             <Table.Column
 //               title="CREDIT"
-//             className="llllll"
+//             className=""
 //               dataIndex="amount"
 //               key="credit"
 //               render={(text) => text > 0 ? <div className="text-[#52B5E1]">{Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}</div> : 0}
 //             />
 //             <Table.Column
 //               title="DEBIT"
-//             className="llllll"
+//             className=""
 //               dataIndex="amount"
 //               key="debit"
 //               render={(text) => text < 0 ? <div className="red-text">{Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}</div> : 0}
 //             />
 //             <Table.Column
 //               title="Balance"
-//             className="llllll"
+//             className=""
 //               dataIndex="balance"
 //               key="balance"
 //               render={text => Number.parseFloat(Math.abs(text)).toFixed(2).replace(/\.?0+$/, "")}
@@ -604,6 +604,7 @@ import { getUserStatement } from "../../../appRedux/actions/User";
 import BackMenuButton from "../../../components/BackMenu";
 import Loader from "../../../components/loader";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import LeftSidebar from "../../../components/LeftSidebar/LeftSidebar";
 
 const Statement = () => {
   const [dateRange, setDateRange] = useState([
@@ -710,6 +711,10 @@ const Statement = () => {
   };
 
   const handleTabClick = (tabIndex) => {
+    if (activeTab === tabIndex) {
+      return null;
+    }
+    
     setActiveTab(tabIndex);
     setCurrentPage(1);
     return setDisplayedData([]);
@@ -724,20 +729,199 @@ const Statement = () => {
     }
     return originalElement;
   };
+
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      className: ' gx-text-nowrap',
+      render: (text) => moment(text).utcOffset('+05:30').format('DD MMM YY'),
+    },
+    {
+      title: 'Description',
+      dataIndex: 'remark',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      key: 'remark',
+      className: ' gx-text-nowrap',
+      render: (text) => <div className="truncate">{text}</div>,
+    },
+    {
+      title: 'Prev Balance',
+      dataIndex: 'preBalance',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      align:"center",
+      key: 'preBalance',
+      className: ' gx-text-nowrap',
+      render: (text) => <div className="truncate">{text ? text : "-"}</div>,
+    },
+    {
+      title: 'CREDIT',
+      dataIndex: 'amount',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      key: 'credit',
+      className: ' gx-text-nowrap',
+      render: (text) =>
+        text > 0 ? (
+          <div className="gx-text-primary gx-font-weight-bold gx-fs-md">
+            {Number.parseFloat(Math.abs(text))
+              .toFixed(2)
+              .replace(/\.?0+$/, '')}
+          </div>
+        ) : (
+          0
+        ),
+    },
+    {
+      title: 'DEBIT',
+      dataIndex: 'amount',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      key: 'debit',
+      className: ' gx-text-nowrap',
+      render: (text) =>
+        text < 0 ? (
+          <div className="gx-text-red gx-font-weight-bold gx-fs-md">
+            {Number.parseFloat(Math.abs(text))
+              .toFixed(2)
+              .replace(/\.?0+$/, '')}
+          </div>
+        ) : (
+          0
+        ),
+    },
+    {
+      title: 'Comm+',
+      dataIndex: 'Comm',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      key: 'remark',
+      align:"center",
+      className: ' gx-text-nowrap',
+      render: (text) => <div className="truncate">{text ?text : '-'}</div>,
+    },
+    
+    {
+      title: 'Balance',
+      dataIndex: 'newAmount',
+      onHeaderCell: (column) => ({
+        style: {
+          background:"#D3D3D3",
+          color:"black",
+          fontWeight:"bold"
+        },
+      }),
+      key: 'balance',
+      className: ' gx-text-nowrap',
+      render: (text) => (
+        <div className="gx-text-black gx-font-weight-bold gx-fs-md">
+          {Number.parseFloat(Math.abs(text))
+            .toFixed(2)
+            .replace(/\.?0+$/, '')}
+        </div>
+      ),
+    },
+  ];
+
+
   return (
     <>
 
-      {loading ? <Loader props={loading} /> :
-        <Auxiliary>
-          <div className="gx-py-3 gx-w-100">
-            <BackMenuButton />
-          </div>
-          <Row justify={"center"}>
-            <Col sm={14} xs={24} className="gx-col-full " >
+      {loading ? <Loader props={loading} /> :<Row>
+    <Col  xs={24}
+    md={4}
+    xl={3}
+    className=" gx-d-none gx-d-md-block gx-px-0 gx-mx-0">
+   
+    <LeftSidebar />
+    </Col>
+    <Col xs={24} md={20} xl={21}>
+    <div  style={{
+        backgroundColor: "white",
+        borderTop: "10px solid black",
+        borderTopLeftRadius: "1rem",
+        borderTopRightRadius: "1rem",
+        height: "100%",
+      }}>
 
-              <div className="gx-py-2 gx-bg-grey gx-bg-flex gx-justify-content-center gx-text-white gx-w-100">
-                MY ACCOUNT STATEMENT ({userLists?.length || "-"})
+        <Auxiliary>
+         
+          <Row justify={"center"}>
+            <Col  xs={24} className="gx-col-full " >
+
+              <div className="gx-py-2 gx-px-2 gx-font-weight-semi-bold gx-text-black">
+                ACCOUNT STATEMENT
               </div>
+              <Row justify={"start"} >
+              <Radio.Group
+                    size="small"
+                    className=" gx-w-100 gx-px-4 gx-my-0   "
+                  >
+                    <Radio
+                      className={`  gx-py- gx-my-0`}
+                      onClick={() => handleTabClick(1)}
+                      value= {1}
+                    >
+                      All
+                    </Radio>
+                    <Radio
+                      className={`  gx-py- gx-my-0`}
+                      onClick={() => handleTabClick(2)}
+                      value={2}
+                    >
+                      Profit and loss
+                    </Radio>
+                    <Radio
+                      className={`  gx-py- gx-my-0`}
+                    
+                      value={4}
+                    >
+                      PDC
+                    </Radio>
+                    <Radio
+                      className={`  gx-py- gx-my-0`}
+                      onClick={() => handleTabClick(3)}
+                      value={3}
+                    >
+                      Account statement
+                    </Radio>
+                  </Radio.Group>
+              </Row>
               <Row
                 className="  gx-bg-flex  gx-align-items-center gx-w-100 gx-py-1"
                 justify={"space-between"}
@@ -778,109 +962,22 @@ const Statement = () => {
                   className="  gx-text-white gx-fs-lg gx-py-md-0 gx-py-2 gx-font-weight-bold gx-bg-flex gx-align-items-center gx-justify-content-start "
                   sm={12} xs={24}
                 >
-                  <Radio.Group
-                    size="small"
-                    className="gx-bg-flex gx-w-100 gx-py- gx-my-0 gx-align-items-center gx-justify-content-center  "
-                  >
-                    <Radio.Button
-                      className={`${activeTab === 1 ? "gx-bg-dark" : "gx-bg-primary"
-                        } gx-text-white gx-py- gx-my-0`}
-                      onClick={() => handleTabClick(1)}
-                      value="1"
-                    >
-                      All
-                    </Radio.Button>
-                    <Radio.Button
-                      className={`${activeTab === 2 ? "gx-bg-dark" : "gx-bg-primary"
-                        } gx-text-white gx-py- gx-my-0`}
-                      onClick={() => handleTabClick(2)}
-                      value="2"
-                    >
-                      P&L
-                    </Radio.Button>
-                    <Radio.Button
-                      className={`${activeTab === 3 ? "gx-bg-dark" : "gx-bg-primary"
-                        } gx-text-white gx-py- gx-my-0`}
-                      onClick={() => handleTabClick(3)}
-                      value="3"
-                    >
-                      Account
-                    </Radio.Button>
-                  </Radio.Group>
+                 
                 </Col>
               </Row>
               <Table
-                className="gx-table-responsive "
-                dataSource={displayedData}
-                pagination={false}
-                bordered
-                rowKey="createdAt"
-              >
-                <Table.Column
-                  className="llllll gx-text-nowrap"
-                  title="Date"
-                  dataIndex="createdAt"
-                  key="createdAt"
-                  render={(text) =>
-                    moment(text).utcOffset("+05:30").format("DD MMM YY")
-                  }
-                />
-                <Table.Column
-                  title="Description"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="remark"
-                  key="remark"
-                  render={(text) => <div className="truncate">{text}</div>}
-                />
-                <Table.Column
-                  title="CREDIT"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="amount"
-                  key="credit"
-                  render={(text) =>
-                    text > 0 ? (
-                      <div className="gx-text-primary gx-font-weight-bold gx-fs-md">
-                        {Number.parseFloat(Math.abs(text))
-                          .toFixed(2)
-                          .replace(/\.?0+$/, "")}
-                      </div>
-                    ) : (
-                      0
-                    )
-                  }
-                />
-                <Table.Column
-                  title="DEBIT"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="amount"
-                  key="debit"
-                  render={(text) =>
-                    text < 0 ? (
-                      <div className="gx-text-red gx-font-weight-bold gx-fs-md">
-                        {Number.parseFloat(Math.abs(text))
-                          .toFixed(2)
-                          .replace(/\.?0+$/, "")}
-                      </div>
-                    ) : (
-                      0
-                    )
-                  }
-                />
-                <Table.Column
-                  title="Balance"
-                  className="llllll gx-text-nowrap"
-                  dataIndex="newAmount"
-                  key="balance"
-                  render={(text) =>
-                    <div className="gx-text-black gx-font-weight-bold gx-fs-md">
-                      {Number.parseFloat(Math.abs(text))
-                        .toFixed(2)
-                        .replace(/\.?0+$/, "")}
-                    </div>
-                  }
-                />
-              </Table>
-              {paginationicon && <Pagination
+      className=""
+      dataSource={displayedData}
+      pagination={false}
+bordered
+      size="small"
+      rowKey="createdAt"
+      columns={columns}
+      scroll={{x:true}}
+    />
+             <div className="gx-bg-flex gx-justify-content-between gx-align-items-center gx-px-2">
+              <span style={{color:'#00008B'}} className="gx-fs-lg gx-font-weight-semi-bold ">Total Records : {userLists?.length}</span>
+             {paginationicon && <Pagination
                 className="gx-mt-3"
                 current={currentPage}
                 pageSize={pageSize}
@@ -890,16 +987,21 @@ const Statement = () => {
                 showSizeChanger={false}
               />
               }
-              <div className="gx-py-4">
+             </div>
+              {/* <div className="gx-py-4">
                 <Link to='/main/dashboard/'>
                   <div className="gx-bg-grey gx-py-1 gx-text-white gx-font-weight-semi gx-bg-flex gx-justify-content-center">
                     BACK TO MAIN MENU
                   </div>
                 </Link>
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Auxiliary>
+        </div>
+ 
+       </Col>
+      </Row>
       }
     </>
   );

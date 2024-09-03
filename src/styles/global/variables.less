@@ -627,4 +627,31 @@
   .minMax {
     font-size: 16px;
   }
-}               
+}    
+
+.text_blink{
+  animation:blink 1s linear infinite;
+}
+
+@keyframes blink{
+  0% { color: #c2e884; }
+  20% { color: #c2e884; }
+  40% { color: #ff7f00; }
+  60% {color: #ff7f00; }
+  80% { color: #36cb3b;}
+  100% {color: #36cb3b;}
+}
+
+
+.urbet_layout_header_top{
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-top: 8px solid black;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.urbet_layout_header_top_bottom {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-top: 8px solid rgb(31, 28, 28);
+  border-bottom: 8px solid rgb(31, 28, 28);
+  border-radius: 0.75rem 0.75rem 0.75rem 0.75rem;
+}

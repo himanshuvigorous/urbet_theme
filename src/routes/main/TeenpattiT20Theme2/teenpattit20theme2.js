@@ -18,6 +18,7 @@ import { LockOutlined } from "@ant-design/icons";
 import CasinoAlertModal from "../../../components/casino_components/CasinoAlertModal/CasinoAlertModal";
 import DecalaredCasinoBetList from "../../../components/casino_components/DecalaredCasinoBetList/DecalaredCasinoBetList";
 import { FaLock } from "react-icons/fa";
+import UrbetLayout from "../../../components/UrbetLayout/UrbetLayout";
 
 const { Text } = Typography;
 
@@ -662,7 +663,7 @@ class Teenpatti20Theme2 extends React.Component {
     let PlayerA = data && data.t2 && data.t2[0] ? data.t2[0] : {};
     let PlayerB = data && data.t2 && data.t2[2] ? data.t2[2] : {};
     return (
-      <>
+      <UrbetLayout>
         <div className={`gx-overflow-y-auto`}>
           {/* {
               isFatch ?
@@ -692,7 +693,7 @@ class Teenpatti20Theme2 extends React.Component {
           ) : null}
 
           <Row justify="center">
-            <Col xs={24} sm={24} md={24} lg={10} xl={10} xxl={10}>
+            <Col xs={24} >
               <PageHeaderTheme
                 PageTitle={name ? name : "20-20 Teenpatti"}
                 ruleImage={"/assets/images/rulesImage/tp-rules.webp"}
@@ -768,7 +769,7 @@ class Teenpatti20Theme2 extends React.Component {
                 </div>
               </Card>
 
-              <Card bordered className="gx-bg-white gx-text-white gx-my-0 gx-px-3">
+              <Card  style={{border:"5px solid yellow"}} bordered className="gx-bg-white gx-text-white gx-my-0 gx-px-3">
                 <Row
                   className="gx-border-bottom  gx-border-white gx-text-center"
                   style={{ background: "rgba(0, 0, 0, 0.3)" }}
@@ -777,7 +778,7 @@ class Teenpatti20Theme2 extends React.Component {
                     span={16}
                     className="gx-border-right  gx-py-2"
                   ></Col>
-                  <Col span={8} className="gx-bg-grey gx-py-2">
+                  <Col span={8} className="gx-bg-cyan gx-py-2">
                     <Text strong className="gx-text-white gx-text-uppercase">
                       Back
                     </Text>
@@ -815,7 +816,7 @@ class Teenpatti20Theme2 extends React.Component {
                     </Row>
                   </Col>
                   {PlayerA && PlayerA.gstatus === "1" ? (
-                    <Col span={8} className="gx-bg-grey gx-position-relative">
+                    <Col span={8} className="gx-bg-cyan gx-position-relative">
                       <div className="gx-flex-column  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2 gx-pointer">
                         <div
                           className="gx-text-center"
@@ -840,8 +841,8 @@ class Teenpatti20Theme2 extends React.Component {
                       </div>
                     </Col>
                   ) : (
-                    <Col span={8} className="gx-bg-grey gx-position-relative">
-                      <div className="gx-flex-column gx-bg-grey  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
+                    <Col span={8} className="gx-bg-cyan gx-position-relative">
+                      <div className="gx-flex-column gx-bg-cyan  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
                         <div className="gx-text-center gx-position-relative gx-w-100 ">
                           <div className="text-[18px] font-semibold">
                             {PlayerA && PlayerA.rate
@@ -893,7 +894,7 @@ class Teenpatti20Theme2 extends React.Component {
                     </Row>
                   </Col>
                   {PlayerB && PlayerB.gstatus === "1" ? (
-                    <Col span={8} className="gx-bg-grey gx-position-relative">
+                    <Col span={8} className="gx-bg-cyan gx-position-relative">
                       <div className="gx-flex-column  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2 gx-pointer">
                         <div
                           className="gx-text-center"
@@ -918,8 +919,8 @@ class Teenpatti20Theme2 extends React.Component {
                       </div>
                     </Col>
                   ) : (
-                    <Col className="gx-bg-grey gx-position-relative" span={8}>
-                      <div className="gx-flex-column gx-bg-grey  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
+                    <Col className="gx-bg-cyan gx-position-relative" span={8}>
+                      <div className="gx-flex-column gx-bg-cyan  gx-justify-center gx-align-items-center gx-cursor-pointer gx-py-2">
                         <div className="gx-text-center gx-position-relative gx-w-100 ">
                           <div className="text-[18px] font-semibold">
                             {PlayerB && PlayerB.rate
@@ -998,8 +999,8 @@ class Teenpatti20Theme2 extends React.Component {
                 </div>
               ) : null}
 
-              <Row justify={"center"} className="gx-my-2">
-                {/* <Col span={8}> */}
+              {/* <Row justify={"center"} className="gx-my-2">
+            
                 <Button
                   className="gx-bg-grey gx-text-white gx-font-weight-semi-bold"
                   onClick={() => {
@@ -1009,8 +1010,8 @@ class Teenpatti20Theme2 extends React.Component {
                 >
                   Completed Casino Bets
                 </Button>
-                {/* </Col> */}
-              </Row>
+              
+              </Row> */}
 
               <div style={{ backgroundColor: "rgba(0,0,0,0.3)" }} className="gx-mt-1">
                 <RoundedTabBmx />
@@ -1044,7 +1045,7 @@ class Teenpatti20Theme2 extends React.Component {
           </Row>
 
         </div>
-      </>
+      </UrbetLayout>
     );
   }
 }

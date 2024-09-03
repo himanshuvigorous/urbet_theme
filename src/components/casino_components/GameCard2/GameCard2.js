@@ -22,7 +22,7 @@ export default function GameCard2(props) {
                         justify="center"
                         align="middle"
                         onClick={() => handleBackOpen(Data, section1Ref)}
-                        className={`gx-bg-grey gx-w-100 ant-space-align-center gx-py-2 gx-fs-lg gx-font-weight-medium ${select === "Red" ? "gx-text-red" : "gx-text-black"} gx-rounded-sm`}
+                        className={`gx-bg-cyan gx-w-100 ant-space-align-center gx-py-2 gx-fs-lg gx-font-weight-medium ${select === "Red" ? "gx-text-red" : "gx-text-black"} gx-rounded-sm`}
                         // style={{ height: "40px" }}
                     >
                         {select === "Red" ? (
@@ -42,7 +42,7 @@ export default function GameCard2(props) {
                         <div
                             justify="center"
                             align="middle"
-                            className={`gx-bg-grey gx-w-100 ant-space-align-center gx-py-2 gx-fs-lg gx-font-weight-medium ${select === "Red" ? "gx-text-red" : "gx-text-black"} gx-rounded-sm`}
+                            className={`gx-bg-cyan gx-w-100 ant-space-align-center gx-py-2 gx-fs-lg gx-font-weight-medium ${select === "Red" ? "gx-text-red" : "gx-text-black"} gx-rounded-sm`}
                             // style={{ height: "40px" }}
                         >
                             {select === "Red" ? (
